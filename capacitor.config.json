@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "smart-car",
+  "appId": "top.muted.smartkey",
+  "appName": "Smart Key",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
@@ -9,5 +9,6 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/usr/bin/android-studio"
 }
