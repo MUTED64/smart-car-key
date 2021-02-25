@@ -3,26 +3,72 @@
     <IonSplitPane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
-  
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+          <ion-list id="main-list">
+            <ion-list-header>智能汽车租赁</ion-list-header>
+            <ion-note>Smart Key App</ion-note>
+          </ion-list>
+
+          <ion-list id="main-list">
+            <ion-note>信息查看</ion-note>
+            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
+              <ion-item
+                @click="selectedIndex = i"
+                router-direction="root"
+                :router-link="p.url"
+                lines="none"
+                detail="false"
+                class="hydrated"
+                :class="{ selected: selectedIndex === i }"
+              >
+                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-  
-          <ion-list id="labels-list">
+
+          <ion-list id="main-list">
+            <ion-note>车辆租借</ion-note>
+            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(2,5)" :key="i">
+              <ion-item
+                @click="selectedIndex = i+2"
+                router-direction="root"
+                :router-link="p.url"
+                lines="none"
+                detail="false"
+                class="hydrated"
+                :class="{ selected: selectedIndex === i+2 }"
+              >
+                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+
+          <ion-list id="main-list">
+            <ion-note>关于</ion-note>
+            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(5,)" :key="i">
+              <ion-item
+                @click="selectedIndex = i+5"
+                router-direction="root"
+                :router-link="p.url"
+                lines="none"
+                detail="false"
+                class="hydrated"
+                :class="{ selected: selectedIndex === i+5 }"
+              >
+                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+
+          <!-- <ion-list id="labels-list">
             <ion-list-header>Labels</ion-list-header>
-  
             <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
+              <ion-icon slot="start" :md="bookmarkSharp"></ion-icon>
               <ion-label>{{ label }}</ion-label>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -31,97 +77,120 @@
 </template>
 
 <script>
-import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import {
+  IonApp,
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenu,
+  IonMenuToggle,
+  IonNote,
+  IonRouterOutlet,
+  IonSplitPane,
+} from "@ionic/vue";
+import { defineComponent, ref } from "vue";
+import { useRoute } from "vue-router";
+import {
+  personCircleSharp,
+  carSportSharp,
+  keySharp,
+  lockOpenSharp,
+  speedometerSharp,
+  informationCircleSharp,
+  callSharp,
+} from "ionicons/icons";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
-    IonApp, 
-    IonContent, 
-    IonIcon, 
-    IonItem, 
-    IonLabel, 
-    IonList, 
-    IonListHeader, 
-    IonMenu, 
-    IonMenuToggle, 
-    IonNote, 
-    IonRouterOutlet, 
+    IonApp,
+    IonContent,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonListHeader,
+    IonMenu,
+    IonMenuToggle,
+    IonNote,
+    IonRouterOutlet,
     IonSplitPane,
   },
   setup() {
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Inbox',
-        url: '/folder/Inbox',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
+        title: "我的信息",
+        url: "/folder/我的信息",
+        mdIcon: personCircleSharp,
       },
       {
-        title: 'Outbox',
-        url: '/folder/Outbox',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
+        title: "行驶状况",
+        url: "/folder/行驶状况",
+        mdIcon: speedometerSharp,
       },
       {
-        title: 'Favorites',
-        url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
+        title: "汽车租赁",
+        url: "/folder/汽车租赁",
+        mdIcon: carSportSharp,
       },
       {
-        title: 'Archived',
-        url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
+        title: "开关车锁",
+        url: "/folder/开关车锁",
+        mdIcon: lockOpenSharp,
       },
       {
-        title: 'Trash',
-        url: '/folder/Trash',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
+        title: "共享钥匙",
+        url: "/folder/共享钥匙",
+        mdIcon: keySharp,
       },
       {
-        title: 'Spam',
-        url: '/folder/Spam',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
-      }
+        title: "项目信息",
+        url: "/folder/项目信息",
+        mdIcon: informationCircleSharp,
+      },
+      {
+        title: "联系我们",
+        url: "/folder/联系我们",
+        mdIcon: callSharp,
+      },
     ];
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-    
-    const path = window.location.pathname.split('folder/')[1];
+    const labels = [
+      "Family",
+      "Friends",
+      "Notes",
+      "Work",
+      "Travel",
+      "Reminders",
+    ];
+
+    const path = window.location.pathname.split("folder/")[1];
+
     if (path !== undefined) {
-      selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+      selectedIndex.value = appPages.findIndex(
+        (page) => encodeURIComponent(page.title) === path
+      );
     }
-    
+
     const route = useRoute();
-    
-    return { 
+
+    return {
       selectedIndex,
-      appPages, 
+      appPages,
       labels,
-      archiveOutline, 
-      archiveSharp, 
-      bookmarkOutline, 
-      bookmarkSharp, 
-      heartOutline, 
-      heartSharp, 
-      mailOutline, 
-      mailSharp, 
-      paperPlaneOutline, 
-      paperPlaneSharp, 
-      trashOutline, 
-      trashSharp, 
-      warningOutline, 
-      warningSharp,
-      isSelected: (url) => url === route.path ? 'selected' : ''
-    }
-  }
+      personCircleSharp,
+      carSportSharp,
+      keySharp,
+      lockOpenSharp,
+      speedometerSharp,
+      informationCircleSharp,
+      callSharp,
+      isSelected: (url) => (url === route.path ? "selected" : ""),
+    };
+  },
 });
 </script>
 
@@ -142,7 +211,7 @@ ion-menu.md ion-list {
 }
 
 ion-menu.md ion-note {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 ion-menu.md ion-list-header,
@@ -150,11 +219,11 @@ ion-menu.md ion-note {
   padding-left: 10px;
 }
 
-ion-menu.md ion-list#inbox-list {
+ion-menu.md ion-list#main-list {
   border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
 }
 
-ion-menu.md ion-list#inbox-list ion-list-header {
+ion-menu.md ion-list#main-list ion-list-header {
   font-size: 22px;
   font-weight: 600;
 
