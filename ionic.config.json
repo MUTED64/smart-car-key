@@ -1,0 +1,7 @@
+{
+  "name": "smart-car",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
