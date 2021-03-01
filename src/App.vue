@@ -133,8 +133,8 @@ export default defineComponent({
         mdIcon: speedometerSharp,
       },
       {
-        title: "汽车租赁",
-        url: "/folder/汽车租赁",
+        title: "车辆租赁",
+        url: "/folder/车辆租赁",
         mdIcon: carSportSharp,
       },
       {
