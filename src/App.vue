@@ -124,47 +124,39 @@ export default defineComponent({
     const appPages = [
       {
         title: "我的信息",
-        url: "/folder/我的信息",
+        url: "/folder/AboutMe",
         mdIcon: personCircleSharp,
       },
       {
         title: "行驶状况",
-        url: "/folder/行驶状况",
+        url: "/folder/RunningState",
         mdIcon: speedometerSharp,
       },
       {
         title: "车辆租赁",
-        url: "/folder/车辆租赁",
+        url: "/folder/CarLenting",
         mdIcon: carSportSharp,
       },
       {
         title: "开关车锁",
-        url: "/folder/开关车锁",
+        url: "/folder/OpenAndClose",
         mdIcon: lockOpenSharp,
       },
       {
         title: "共享钥匙",
-        url: "/folder/共享钥匙",
+        url: "/folder/KeySharing",
         mdIcon: keySharp,
       },
       {
         title: "项目信息",
-        url: "/folder/项目信息",
+        url: "/folder/AboutProject",
         mdIcon: informationCircleSharp,
       },
       {
         title: "联系我们",
-        url: "/folder/联系我们",
+        url: "/folder/ContactUs",
         mdIcon: callSharp,
       },
-    ];
-    const labels = [
-      "Family",
-      "Friends",
-      "Notes",
-      "Work",
-      "Travel",
-      "Reminders",
     ];
 
     const path = window.location.pathname.split("folder/")[1];
@@ -180,7 +172,6 @@ export default defineComponent({
     return {
       selectedIndex,
       appPages,
-      labels,
       personCircleSharp,
       carSportSharp,
       keySharp,
