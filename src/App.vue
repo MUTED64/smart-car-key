@@ -9,7 +9,7 @@
           </ion-list>
 
           <ion-list id="main-list">
-            <ion-note>信息查看</ion-note>
+            <ion-note color="primary">信息查看</ion-note>
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
               <ion-item
                 @click="selectedIndex = i"
@@ -27,7 +27,7 @@
           </ion-list>
 
           <ion-list id="main-list">
-            <ion-note>车辆租借</ion-note>
+            <ion-note color="primary">车辆租借</ion-note>
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(2,5)" :key="i">
               <ion-item
                 @click="selectedIndex = i+2"
@@ -45,7 +45,7 @@
           </ion-list>
 
           <ion-list id="main-list">
-            <ion-note>关于</ion-note>
+            <ion-note color="primary">关于</ion-note>
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(5,)" :key="i">
               <ion-item
                 @click="selectedIndex = i+5"
@@ -68,7 +68,7 @@
               <ion-icon slot="start" :md="bookmarkSharp"></ion-icon>
               <ion-label>{{ label }}</ion-label>
             </ion-item>
-          </ion-list> -->
+          </ion-list>-->
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -163,7 +163,7 @@ export default defineComponent({
 
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(
-        (page) => encodeURIComponent(page.title) === path
+        (page) => page.url.split("folder/")[1] === path
       );
     }
 
@@ -215,8 +215,8 @@ ion-menu.md ion-list#main-list {
 }
 
 ion-menu.md ion-list#main-list ion-list-header {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: x-large;
+  font-weight: bolder;
 
   min-height: 20px;
 }
