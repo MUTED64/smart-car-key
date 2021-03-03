@@ -25,5 +25,10 @@ module.exports = {
         jest: true
       }
     }
-  ]
+  ],
+  globals:{
+    AMap:true,
+    AMapUI:true,
+    Loca:true
+}
 }

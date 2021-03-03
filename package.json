@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "0.0.7",
     "@capacitor/android": "^2.4.6",
     "@capacitor/core": "2.4.6",
     "@ionic/vue": "^5.4.0",
