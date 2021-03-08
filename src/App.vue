@@ -201,11 +201,11 @@ export default defineComponent({
   },
   methods:{
     clearAuth(){
-      console.log("a");
       this.$store.dispatch("userLogin", false);
       localStorage.setItem("Flag", "isLogin");
-      router.replace("");
-      console.log("b");
+      router.replace({
+        path:"/folder/login"
+      });
     }
   }
 });
