@@ -69,6 +69,15 @@
               <ion-label>{{ label }}</ion-label>
             </ion-item>
           </ion-list>-->
+          <div>
+            <ion-button v-show="!flag" expand="block" fill="outline" href="/folder/login">登录</ion-button>
+            <ion-button
+              v-show="flag"
+              expand="block"
+              fill="outline"
+              @click="clearAuth"
+            >注销</ion-button>
+          </div>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -90,6 +99,7 @@ import {
   IonNote,
   IonRouterOutlet,
   IonSplitPane,
+  IonButton
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -102,6 +112,7 @@ import {
   informationCircleSharp,
   callSharp,
 } from "ionicons/icons";
+import router from "./router";
 
 export default defineComponent({
   name: "App",
@@ -118,6 +129,7 @@ export default defineComponent({
     IonNote,
     IonRouterOutlet,
     IonSplitPane,
+    IonButton
   },
   setup() {
     const selectedIndex = ref(0);
@@ -182,6 +194,20 @@ export default defineComponent({
       isSelected: (url) => (url === route.path ? "selected" : ""),
     };
   },
+  computed: {
+    flag() {
+      return this.$store.getters.isLogin;
+    },
+  },
+  methods:{
+    clearAuth(){
+      console.log("a");
+      this.$store.dispatch("userLogin", false);
+      localStorage.setItem("Flag", "isLogin");
+      router.replace("");
+      console.log("b");
+    }
+  }
 });
 </script>
 
@@ -304,5 +330,11 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+
+div {
+  margin-top: 20%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
