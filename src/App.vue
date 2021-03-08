@@ -62,21 +62,9 @@
             </ion-menu-toggle>
           </ion-list>
 
-          <!-- <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon slot="start" :md="bookmarkSharp"></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          </ion-list>-->
           <div>
-            <ion-button v-show="!flag" expand="block" fill="outline" href="/folder/login">登录</ion-button>
-            <ion-button
-              v-show="flag"
-              expand="block"
-              fill="outline"
-              @click="clearAuth"
-            >注销</ion-button>
+            <ion-button v-show="!flag" expand="block" fill="outline" @click="login">登录</ion-button>
+            <ion-button v-show="flag" expand="block" fill="outline" @click="logout">注销</ion-button>
           </div>
         </ion-content>
       </ion-menu>
@@ -99,7 +87,8 @@ import {
   IonNote,
   IonRouterOutlet,
   IonSplitPane,
-  IonButton
+  IonButton,
+  menuController,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -129,7 +118,7 @@ export default defineComponent({
     IonNote,
     IonRouterOutlet,
     IonSplitPane,
-    IonButton
+    IonButton,
   },
   setup() {
     const selectedIndex = ref(0);
@@ -199,15 +188,19 @@ export default defineComponent({
       return this.$store.getters.isLogin;
     },
   },
-  methods:{
-    clearAuth(){
+  methods: {
+    logout() {
       this.$store.dispatch("userLogin", false);
       localStorage.setItem("Flag", "isLogin");
+      this.login();
+    },
+    login() {
       router.replace({
-        path:"/folder/login"
+        path: "/folder/login",
       });
-    }
-  }
+      menuController.close();
+    },
+  },
 });
 </script>
 
@@ -333,7 +326,7 @@ ion-item.selected {
 }
 
 div {
-  margin-top: 20%;
+  margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
 }
