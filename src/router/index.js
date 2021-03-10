@@ -64,14 +64,23 @@ const routes = [
   {
     path: "/folder/register",
     component: () => import("../views/Register.vue"),
+    meta: {
+      needLogin: false
+    },
   },
   {
     path: "/folder/verification",
     component: () => import("../views/VerificationCode.vue"),
+    meta: {
+      needLogin: false
+    },
   },
   {
     path: "/folder/test",
     component: () => import("../views/OpenAndClose2.vue"),
+    meta: {
+      needLogin: false
+    },
   },
 ];
 
