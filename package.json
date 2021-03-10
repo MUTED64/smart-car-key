@@ -21,6 +21,7 @@
     "vue": "^3.0.0-0",
     "vue-native-websocket-vue3": "^3.1.0",
     "vue-router": "^4.0.0-0",
+    "vue-verification-code": "^1.0.7",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

@@ -33,6 +33,10 @@
         </ion-list>
         <ion-button type="submit" expand="block">登录</ion-button>
       </form>
+      <ion-card-content>
+        没有帐号？
+        <a @click="toRegister">去注册</a>
+      </ion-card-content>
     </ion-card>
   </base-layout>
 </template>
@@ -46,7 +50,8 @@ import {
   IonItem,
   IonList,
   IonCard,
-  IonCardTitle
+  IonCardTitle,
+  IonCardContent
 } from "@ionic/vue";
 // import router from '../router';
 // import Axios from "axios";
@@ -59,10 +64,14 @@ export default {
     IonItem,
     IonList,
     IonCard,
-    IonCardTitle
+    IonCardTitle,
+    IonCardContent
   },
   data() {
-    return {};
+    return {
+      username: null,
+      password: null,
+    };
   },
   computed: {
     flag() {
@@ -71,12 +80,16 @@ export default {
   },
   methods: {
     login() {
-      // Axios.post("/xxx/login", { user: "", password: "" }).then((data) => {
+      // Axios.post("folder/AboutMe", {
+      //   user: this.username,
+      //   password: this.password,
+      //   timestamp: (new Date()).valueOf(),
+      // }).then((data) => {
       //   //登录失败,先不讨论
       //   if (data.data.status != 200) {
       //     //iViewUi的友好提示
-      //     alert(data.data.message);
-      //     console.log("as");
+      //     // alert(data.data.message);
+      //     console.log("login failed");
       //     //登录成功
       //   } else {
       //     //设置Vuex登录标志为true，默认userLogin为false
@@ -85,15 +98,22 @@ export default {
       //     //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
       //     localStorage.setItem("Flag", "isLogin");
       //     //iViewUi的友好提示
-      //     this.$Message.success(data.data.message);
+      //     // this.$Message.success(data.data.message);
       //     //登录成功后跳转到指定页面
-      //     this.$router.replace(router.currentRoute.value.query.redirect);
+      //     let redirectpath = router.currentRoute.value.query.redirect;
+      //     router.replace(redirectpath ? redirectpath : "/");
       //   }
       // });
+
       this.$store.dispatch("userLogin", true);
       localStorage.setItem("Flag", "isLogin");
       let redirectpath = router.currentRoute.value.query.redirect;
       router.replace(redirectpath ? redirectpath : "/");
+    },
+    toRegister() {
+      router.replace({
+        path: "/folder/register",
+      });
     },
   },
 };

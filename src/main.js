@@ -35,7 +35,7 @@ const app = createApp(App)
   .use(AMapLoader)
   .use(VueNativeSock, "ws://echo.websocket.org", {
     store: store,
-  });
+  })
 
 app.component("base-layout", BaseLayout);
 

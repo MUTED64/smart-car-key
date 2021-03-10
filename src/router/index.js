@@ -62,8 +62,16 @@ const routes = [
     },
   },
   {
-    path: "/folder/logout",
-    component: () => import("../views/Logout.vue"),
+    path: "/folder/register",
+    component: () => import("../views/Register.vue"),
+  },
+  {
+    path: "/folder/verification",
+    component: () => import("../views/VerificationCode.vue"),
+  },
+  {
+    path: "/folder/test",
+    component: () => import("../views/OpenAndClose2.vue"),
   },
 ];
 
