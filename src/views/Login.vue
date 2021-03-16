@@ -108,7 +108,7 @@ export default {
       this.$store.dispatch("userLogin", true);
       localStorage.setItem("Flag", "isLogin");
       let redirectpath = router.currentRoute.value.query.redirect;
-      router.replace(redirectpath ? redirectpath : "/");
+      router.replace({path: redirectpath ? redirectpath : "/"});
     },
     toRegister() {
       router.replace({
