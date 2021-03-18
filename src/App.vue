@@ -63,8 +63,8 @@
           </ion-list>
 
           <div>
-            <ion-button v-show="!flag" expand="block" fill="outline" @click="login">登录</ion-button>
-            <ion-button v-show="flag" expand="block" fill="outline" @click="logout">注销</ion-button>
+            <ion-button v-show="!isLogin" expand="block" fill="outline" @click="login">登录</ion-button>
+            <ion-button v-show="isLogin" expand="block" fill="outline" @click="logout">注销</ion-button>
           </div>
         </ion-content>
       </ion-menu>
@@ -102,6 +102,7 @@ import {
   callSharp,
 } from "ionicons/icons";
 import router from "./router";
+import { Storage } from "@capacitor/core";
 
 export default defineComponent({
   name: "App",
@@ -184,14 +185,36 @@ export default defineComponent({
     };
   },
   computed: {
-    flag() {
-      return this.$store.getters.isLogin;
+    // flag() {
+    //   // return this.$store.getters.isLogin;
+    //   // return Storage.get({ key: "isLogin" })
+    // },
+  },
+  data() {
+    return {
+      isLogin: false,
+    };
+  },
+  async mounted() {
+    this.isLogin = ((await Storage.get({ key: "isLogin" })).value === "true")?true:false;
+  },
+  watch: {
+    async 'locastorage._cap_isLogin'() {
+      if ((await Storage.get({ key: "isLogin" })).value === "true") {
+        this.isLogin = true;
+      } else {
+        this.isLogin = false;
+      }
     },
   },
   methods: {
-    logout() {
-      this.$store.dispatch("userLogin", false);
-      localStorage.setItem("Flag", "isLogin");
+    async logout() {
+      // this.$store.dispatch("userLogin", false);
+      // localStorage.setItem("Flag", "isLogin");
+      await Storage.set({
+        key: "isLogin",
+        value: false,
+      });
       this.login();
     },
     login() {

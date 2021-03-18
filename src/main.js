@@ -7,6 +7,9 @@ import store from "./store";
 import { IonicVue } from "@ionic/vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
 import VueNativeSock from "vue-native-websocket-vue3";
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
@@ -36,6 +39,7 @@ const app = createApp(App)
   .use(VueNativeSock, "ws://echo.websocket.org", {
     store: store,
   })
+  .use(Storage);
 
 app.component("base-layout", BaseLayout);
 
@@ -43,22 +47,23 @@ router.isReady().then(() => {
   app.mount("#app");
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 这里的meta就是我们刚刚在路由里面配置的meta
   if (to.meta.needLogin) {
     // 下面这个判断是自行实现到底是否有没有登录
-    if (store.getters.isLogin) {
-      console.log("isloginistrue");
+    let isLogin = (await Storage.get({ key: "isLogin" })).value;
+    console.log("islogin is " +isLogin);
+    if (isLogin === "true") {
       // 登录就继续
       next();
     } else {
-      if (from.path != "/folder/login") {
+      // if (from.path != "/folder/login") {
         // 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
         next({
           path: "/folder/login",
           query: { redirect: to.fullPath },
         });
-      }
+      // }
     }
   } else {
     // 不需要登录的，可以继续访问

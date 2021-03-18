@@ -43,6 +43,10 @@
 
 <script>
 import router from "../router";
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
+
 import {
   IonButton,
   IonLabel,
@@ -51,7 +55,7 @@ import {
   IonList,
   IonCard,
   IonCardTitle,
-  IonCardContent
+  IonCardContent,
 } from "@ionic/vue";
 // import router from '../router';
 // import Axios from "axios";
@@ -65,7 +69,7 @@ export default {
     IonList,
     IonCard,
     IonCardTitle,
-    IonCardContent
+    IonCardContent,
   },
   data() {
     return {
@@ -79,6 +83,48 @@ export default {
     },
   },
   methods: {
+    async setObject() {
+      await Storage.set({
+        key: "user",
+        value: JSON.stringify({
+          id: 1,
+          name: "Max",
+        }),
+      });
+    },
+
+    // JSON "get" example
+    async getObject() {
+      const ret = await Storage.get({ key: "user" });
+      const user = JSON.parse(ret.value);
+      console.log(user);
+    },
+
+    async setItem(key,value) {
+      await Storage.set({
+        key: key,
+        value: value,
+      });
+    },
+
+    async getItem() {
+      const { value } = await Storage.get({ key: "name" });
+      console.log("Got item: ", value);
+    },
+
+    async removeItem() {
+      await Storage.remove({ key: "name" });
+    },
+
+    async keys() {
+      const { keys } = await Storage.keys();
+      console.log("Got keys: ", keys);
+    },
+
+    async clear() {
+      await Storage.clear();
+    },
+
     login() {
       // Axios.post("folder/AboutMe", {
       //   user: this.username,
@@ -105,11 +151,14 @@ export default {
       //   }
       // });
 
-      this.$store.dispatch("userLogin", true);
-      localStorage.setItem("Flag", "isLogin");
+      // this.$store.dispatch("userLogin", true);
+      this.setItem("isLogin", true);
+      console.log(Storage.get({"key":"isLogin"}).value);
+      // localStorage.setItem("Flag", "isLogin");
       let redirectpath = router.currentRoute.value.query.redirect;
-      router.replace({path: redirectpath ? redirectpath : "/"});
+      router.replace({ path: redirectpath ? redirectpath : "/" });
     },
+
     toRegister() {
       router.replace({
         path: "/folder/register",

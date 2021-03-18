@@ -33,17 +33,17 @@ export default {
         .then(async () => {
           let map = new AMap.Map("container", { resizeEnable: true });
           let location = new AMap.Geolocation({
-          // 是否使用高精度定位，默认：true
-          enableHighAccuracy: true,
-          // 设置定位超时时间，默认：无穷大
-          timeout: 10000,
-          // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
-          buttonOffset: new AMap.Pixel(10, 20),
-          //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-          zoomToAccuracy: true,
-          //  定位按钮的排放位置,  RB表示右下
-          buttonPosition: "RB",
-        })
+            // 是否使用高精度定位，默认：true
+            enableHighAccuracy: true,
+            // 设置定位超时时间，默认：无穷大
+            timeout: 10000,
+            // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+            buttonOffset: new AMap.Pixel(10, 20),
+            //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            zoomToAccuracy: true,
+            //  定位按钮的排放位置,  RB表示右下
+            buttonPosition: "RB",
+          });
           map.addControl(new AMap.Scale());
           map.addControl(location);
           await this.getLocation(location);
@@ -59,29 +59,26 @@ export default {
         });
     },
     async getLocation(geolocation) {
-      return new Promise((resolve, reject)=>{
+      return new Promise((resolve, reject) => {
         AMap.plugin("AMap.Geolocation", function () {
-        geolocation.getCurrentPosition(function (status, result) {
-          if (status == "complete") {
-            // onComplete(result);
-            resolve(result);
-          } else {
-            // onError(result);
-            reject("uncomplete");
-          }
+          geolocation.getCurrentPosition(function (status, result) {
+            if (status == "complete") {
+              onComplete(result);
+            } else {
+              onError(status);
+            }
+          });
         });
-      })
-      
 
-        // function onComplete(data) {
-        //   // data是具体的定位信息
-        //   console.log(data);
-        // }
+        function onComplete(result) {
+          // data是具体的定位信息
+          resolve(result);
+        }
 
-        // function onError(data) {
-        //   // 定位出错
-        //   console.log(data);
-        // }
+        function onError(status) {
+          // 定位出错
+          reject(status);
+        }
       });
     },
   },
