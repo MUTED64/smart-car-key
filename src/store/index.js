@@ -1,7 +1,9 @@
 import { createStore } from "vuex";
 import app from "../main";
+import createPersistedState from "vuex-persistedstate";
 
 const store = createStore({
+  plugins: [createPersistedState()],
   state() {
     return {
       isLogin: false,

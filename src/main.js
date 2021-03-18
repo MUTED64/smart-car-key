@@ -51,19 +51,20 @@ router.beforeEach(async (to, from, next) => {
   // 这里的meta就是我们刚刚在路由里面配置的meta
   if (to.meta.needLogin) {
     // 下面这个判断是自行实现到底是否有没有登录
-    let isLogin = (await Storage.get({ key: "isLogin" })).value;
+    // let isLogin = (await Storage.get({ key: "isLogin" })).value;
+    let isLogin = store.getters.isLogin;
     console.log("islogin is " +isLogin);
-    if (isLogin === "true") {
+    if (isLogin) {
       // 登录就继续
       next();
     } else {
-      // if (from.path != "/folder/login") {
+      if (from.path != "/folder/login") {
         // 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
         next({
           path: "/folder/login",
           query: { redirect: to.fullPath },
         });
-      // }
+      }
     }
   } else {
     // 不需要登录的，可以继续访问
