@@ -57,8 +57,7 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/vue";
-// import router from '../router';
-// import Axios from "axios";
+import Axios from "axios";
 
 export default {
   components: {
@@ -126,32 +125,32 @@ export default {
     },
 
     login() {
-      // Axios.post("folder/AboutMe", {
-      //   user: this.username,
-      //   password: this.password,
-      //   timestamp: (new Date()).valueOf(),
-      // }).then((data) => {
-      //   //登录失败,先不讨论
-      //   if (data.data.status != 200) {
-      //     //iViewUi的友好提示
-      //     // alert(data.data.message);
-      //     console.log("login failed");
-      //     //登录成功
-      //   } else {
-      //     //设置Vuex登录标志为true，默认userLogin为false
-      //     this.$store.dispatch("userLogin", true);
-      //     //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
-      //     //登录成功后跳转到指定页面
-      //     let redirectpath = router.currentRoute.value.query.redirect;
-      //     router.replace(redirectpath ? redirectpath : "/");
-      //   }
-      // });
+      Axios.post("http://182.92.211.131/", {
+        user: this.username,
+        password: this.password,
+        timestamp: (new Date()).valueOf(),
+      }).then((data) => {
+        //登录失败,先不讨论
+        console.log(data);
+        if (data.status != 200) {
+          //iViewUi的友好提示
+          // alert(data.data.message);
+          console.log("login failed");
+          //登录成功
+        } else {
+          //设置Vuex登录标志为true，默认userLogin为false
+          this.$store.dispatch("userLogin", true);
+          //登录成功后跳转到指定页面
+          let redirectpath = router.currentRoute.value.query.redirect;
+          router.replace(redirectpath ? redirectpath : "/");
+        }
+      });
 
       // this.setItem("isLogin", "true");
-      this.$store.dispatch("userLogin", true);
-      localStorage.setItem("Flag", "isLogin");
-      let redirectpath = router.currentRoute.value.query.redirect;
-      router.replace({ path: redirectpath ? redirectpath : "/" });
+      // localStorage.setItem("Flag", "isLogin");
+      // this.$store.dispatch("userLogin", true);
+      // let redirectpath = router.currentRoute.value.query.redirect;
+      // router.replace({ path: redirectpath ? redirectpath : "/" });
     },
 
     toRegister() {
