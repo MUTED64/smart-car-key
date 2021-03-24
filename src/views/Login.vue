@@ -43,9 +43,10 @@
 
 <script>
 import router from "../router";
-import { Plugins } from "@capacitor/core";
+import "@capacitor-community/http";
+import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
 
-const { Storage } = Plugins;
+const { Camera } = Plugins;
 
 import {
   IonButton,
@@ -57,7 +58,7 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/vue";
-import Axios from "axios";
+// import Axios from "axios";
 
 export default {
   components: {
@@ -82,56 +83,52 @@ export default {
     },
   },
   methods: {
-    async setObject() {
-      await Storage.set({
-        key: "user",
-        value: JSON.stringify({
-          id: 1,
-          name: "Max",
-        }),
+    async takePhoto() {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+        quality: 50,
       });
+      return await photo.base64String;
     },
 
-    // JSON "get" example
-    async getObject() {
-      const ret = await Storage.get({ key: "user" });
-      const user = JSON.parse(ret.value);
-      console.log(user);
-    },
+    async login() {
+      let base64photo = await this.takePhoto();
 
-    async setItem(key, value) {
-      await Storage.set({
-        key: key,
-        value: value,
-      });
-    },
+      if (isPlatform("android")) {
+        const { Http } = Plugins;
 
-    async getItem() {
-      const { value } = await Storage.get({ key: "name" });
-      console.log("Got item: ", value);
-    },
+        const onPost = async () => {
+          const ret = await Http.request({
+            method: "POST",
+            url:
+              "https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=24.adf4e216cc967c9c84f544aed604240b.2592000.1619166786.282335-23774832",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              image: base64photo,
+              image_type: "BASE64",
+            },
+          });
+          console.log("ret");
+          console.log(ret);
+        };
 
-    async removeItem() {
-      await Storage.remove({ key: "name" });
-    },
-
-    async keys() {
-      const { keys } = await Storage.keys();
-      console.log("Got keys: ", keys);
-    },
-
-    async clear() {
-      await Storage.clear();
-    },
-
-    login() {
-      Axios.post("http://182.92.211.131/", {
-        user: this.username,
-        password: this.password,
-        timestamp: (new Date()).valueOf(),
-      }).then((data) => {
-        //登录失败,先不讨论
+        onPost();
+      } else {
+        Axios.post(
+        "/api/FaceApi/rest/2.0/face/v3/detect?access_token=24.adf4e216cc967c9c84f544aed604240b.2592000.1619166786.282335-23774832",
+        {
+          // user: this.username,
+          // password: this.password,
+          // timestamp: new Date().valueOf(),
+          image: base64photo,
+          image_type: "BASE64",
+        }
+      ).then((data) => {
         console.log(data);
+        //登录失败,先不讨论
         if (data.status != 200) {
           //iViewUi的友好提示
           // alert(data.data.message);
@@ -145,6 +142,8 @@ export default {
           router.replace(redirectpath ? redirectpath : "/");
         }
       });
+      }
+      
 
       // this.setItem("isLogin", "true");
       // localStorage.setItem("Flag", "isLogin");
