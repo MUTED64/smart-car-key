@@ -9,6 +9,14 @@ const store = createStore({
       isLogin: false,
       userInfo: {
         userId: "",
+        N: null,
+        PWi: "",
+        M1:"",
+        M2:"",
+        RNUi: "",
+        KEYus: "",
+        KEYusn : "",
+        RNs: ""
       },
       socket: {
         // 连接状态

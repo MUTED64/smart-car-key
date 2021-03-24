@@ -8,75 +8,81 @@
 </template>
 
 <script>
-import { Plugins } from "@capacitor/core";
+const { SM3 } = require('gm-crypto')
 
-const { Storage } = Plugins;
+console.log(SM3.digest('abc'))
+console.log(SM3.digest('YWJj', 'utf-8', 'base64'))
+console.log(SM3.digest('616263', 'hex', 'base64'))
 
-export default {
-  components: {
-  },
-  data(){
-    return{
-      name: null,
-      id: null
-    }
-  },
-  methods: {
-    async setObject() {
-      await Storage.set({
-        key: "user",
-        value: JSON.stringify({
-          id: 1,
-          name: "max",
-        }),
-      });
-    },
+// import { Plugins } from "@capacitor/core";
 
-    async setObjectB() {
-      await Storage.set({
-        key: "user",
-        value: JSON.stringify({
-          id: 2,
-          name: "min",
-        }),
-      });
-    },
+// const { Storage } = Plugins;
 
-    // JSON "get" example
-    async getObject() {
-      const ret = await Storage.get({ key: "user" });
-      const user = JSON.parse(ret.value);
-      console.log(user);
-      this.name = user.name;
-      this.id = user.id;
-    },
+// export default {
+//   components: {
+//   },
+//   data(){
+//     return{
+//       name: null,
+//       id: null
+//     }
+//   },
+//   methods: {
+//     async setObject() {
+//       await Storage.set({
+//         key: "user",
+//         value: JSON.stringify({
+//           id: 1,
+//           name: "max",
+//         }),
+//       });
+//     },
 
-    async setItem() {
-      await Storage.set({
-        key: "name",
-        value: "Max",
-      });
-    },
+//     async setObjectB() {
+//       await Storage.set({
+//         key: "user",
+//         value: JSON.stringify({
+//           id: 2,
+//           name: "min",
+//         }),
+//       });
+//     },
 
-    async getItem() {
-      const { value } = await Storage.get({ key: "name" });
-      console.log("Got item: ", value);
-    },
+//     // JSON "get" example
+//     async getObject() {
+//       const ret = await Storage.get({ key: "user" });
+//       const user = JSON.parse(ret.value);
+//       console.log(user);
+//       this.name = user.name;
+//       this.id = user.id;
+//     },
 
-    async removeItem() {
-      await Storage.remove({ key: "name" });
-    },
+//     async setItem() {
+//       await Storage.set({
+//         key: "name",
+//         value: "Max",
+//       });
+//     },
 
-    async keys() {
-      const { keys } = await Storage.keys();
-      console.log("Got keys: ", keys);
-    },
+//     async getItem() {
+//       const { value } = await Storage.get({ key: "name" });
+//       console.log("Got item: ", value);
+//     },
 
-    async clear() {
-      await Storage.clear();
-    },
-  },
-};
+//     async removeItem() {
+//       await Storage.remove({ key: "name" });
+//     },
+
+//     async keys() {
+//       const { keys } = await Storage.keys();
+//       console.log("Got keys: ", keys);
+//     },
+
+//     async clear() {
+//       await Storage.clear();
+//     },
+//   },
+// };
 </script>
 
 <style>
