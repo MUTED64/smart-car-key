@@ -66,20 +66,20 @@ export default {
   methods: {
     async register() {
       console.log("register");
-      await Axios.post("folder/AboutMe", {
-        user: this.username,
-        password: this.password,
-        timestamp: new Date().valueOf(),
-      }).then((data) => {
-        //登录失败,先不讨论
-        if (data.data.status != 200) {
-          console.log("login failed");
-          //登录成功
-        } else {
-          //跳转到验证码
-          router.replace("/folder/verification");
-        }
-      });
+      // await Axios.post("folder/AboutMe", {
+      //   user: this.username,
+      //   password: this.password,
+      //   timestamp: new Date().valueOf(),
+      // }).then((data) => {
+      //   //登录失败,先不讨论
+      //   if (data.data.status != 200) {
+      //     console.log("login failed");
+      //     //登录成功
+      //   } else {
+      //     //跳转到验证码
+      //     router.replace("/folder/verification");
+      //   }
+      // });
     },
   },
 };

@@ -3,10 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import BaseLayout from "./components/BaseLayout.vue";
 import store from "./store";
-
 import { IonicVue } from "@ionic/vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
-import VueNativeSock from "vue-native-websocket-vue3";
+// import VueNativeSock from "vue-native-websocket-vue3";
 import { Plugins } from "@capacitor/core";
 
 const { Storage } = Plugins;
@@ -36,10 +35,10 @@ const app = createApp(App)
   .use(router)
   .use(store)
   .use(AMapLoader)
-  .use(VueNativeSock, "ws://echo.websocket.org", {
-    store: store,
-  })
-  .use(Storage);
+  // .use(VueNativeSock, "ws://echo.websocket.org", {
+  //   store: store,
+  // })
+  .use(Storage)
 
 app.component("base-layout", BaseLayout);
 

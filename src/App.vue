@@ -185,44 +185,13 @@ export default defineComponent({
     };
   },
   computed: {
-    // isLogin(){
-    //   return localStorage._cap_isLogin
-    // }
     isLogin() {
       return this.$store.getters.isLogin;
-    //   // return Storage.get({ key: "isLogin" })
     },
   },
-  // data() {
-  //   return {
-  //     get isLogin() {
-  //       return (localStorage.getItem("_cap_isLogin")==="true")?true:false;
-  //     },
-  //   };
-  // },
-  // async mounted() {
-  //   this.isLogin = ((await Storage.get({ key: "isLogin" })).value === "true")?true:false;
-  // },
-  // watch: {
-  //   'locastorage._cap_isLogin'(){
-  //     this.isLogin = this.locastorage._cap_isLogin_
-  //   }
-  // //   async 'locastorage._cap_isLogin'() {
-  // //     if ((await Storage.get({ key: "isLogin" })).value === "true") {
-  // //       this.isLogin = true;
-  // //     } else {
-  // //       this.isLogin = false;
-  // //     }
-  // //   },
-  // },
   methods: {
     async logout() {
       this.$store.dispatch("userLogin", false);
-      // localStorage.setItem("Flag", "isLogin");
-      // await Storage.set({
-      //   key: "isLogin",
-      //   value: "false",
-      // });
       this.login();
     },
     login() {
