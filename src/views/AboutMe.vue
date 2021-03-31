@@ -1,6 +1,31 @@
 <template>
   <base-layout page-title="我的信息">
-    <ion-card class="main" color="light">
+    <ion-content fullscreen="true" slot="fixed">
+      <div class="card">
+        <div class="header">
+          <div class="avatar">
+            <img src="../../assets/player104.png" alt />
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="user-meta ion-text-center">
+            <h3 class="playername">Roger Federer</h3>
+            <h5 class="country">Switzerland</h5>
+            <h6 class="ranking">
+              Current ranking:
+              <ion-chip>
+                <ion-label>2</ion-label>
+              </ion-chip>
+            </h6>
+          </div>
+
+          <ion-button expand="full" color="primary">http://rogerfederer.com</ion-button>
+          <ion-button expand="full" color="secondary">@RogerFederer on Twitter</ion-button>
+          <ion-button expand="full" color="secondary">View profile at ATP</ion-button>
+        </div>
+      </div>
+    </ion-content>
+    <!-- <ion-card class="main" color="light">
       <div>
         <ion-avatar>
           <img
@@ -28,7 +53,7 @@
         </ion-toolbar>
       </ion-header>
       <my-cars></my-cars>
-    </ion-card>
+    </ion-card>-->
   </base-layout>
 </template>
 
@@ -68,21 +93,27 @@ ion-card.car {
 ion-img {
   width: 50%;
 }
+
+ion-content {
+    --background: url(../../assets/background_full.jpg) no-repeat top center/cover fixed, #fff;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
 </style>
 
 <script>
-import {
-  IonAvatar,
-  IonCard,
-  IonCardTitle,
-  IonTitle,
-  IonToolbar,
-  IonHeader,
-  IonCardSubtitle,
-  IonItem,
-  IonCardContent,
-} from "@ionic/vue";
-import MyCars from "../components/MyCars.vue";
+import // IonAvatar,
+// IonCard,
+// IonCardTitle,
+// IonTitle,
+// IonToolbar,
+// IonHeader,
+// IonCardSubtitle,
+// IonItem,
+// IonCardContent,
+"@ionic/vue";
+// import MyCars from "../components/MyCars.vue";
 // import { Plugins } from '@capacitor/core';
 // import BaseLayout from '../components/BaseLayout.vue';
 
@@ -91,16 +122,16 @@ import MyCars from "../components/MyCars.vue";
 export default {
   name: "Folder",
   components: {
-    IonAvatar,
-    IonCard,
-    IonCardTitle,
-    IonTitle,
-    IonToolbar,
-    IonHeader,
-    IonCardSubtitle,
-    IonItem,
-    IonCardContent,
-    MyCars, // BaseLayout,
+    // IonAvatar,
+    // IonCard,
+    // IonCardTitle,
+    // IonTitle,
+    // IonToolbar,
+    // IonHeader,
+    // IonCardSubtitle,
+    // IonItem,
+    // IonCardContent,
+    // MyCars, // BaseLayout,
   },
   data() {
     return {

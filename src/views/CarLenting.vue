@@ -49,7 +49,7 @@ export default {
             position: "RB",
             offset:[10,70],
             borderRadius: '10px',
-            buttonSize: '40px'
+            buttonSize: '32px'
           });
           map.addControl(new AMap.Scale({offset:[10,70]}));
           map.addControl(location);
@@ -95,8 +95,9 @@ export default {
 <style scoped>
 #container {
   width: 100%;
-  height: 85%;
+  height: 80vh;
   z-index: -1;
+  position: absolute;
 }
 
 ion-card{
@@ -104,9 +105,10 @@ ion-card{
   z-index:1;
   width: 100%;
   margin-left: 0%;
-  margin-top: -15%;
+  margin-top: 72vh;
   border-top-left-radius: 1.5em;
   border-top-right-radius: 1.5em;
-  height: 25%;
+  min-height:15vh;
+  box-shadow: none;
 }
 </style>
