@@ -132,7 +132,7 @@ export default {
     },
 
     async login() {
-      this.getFaceData();
+      // this.getFaceData();
       this.loginToBackEnd();
     },
 

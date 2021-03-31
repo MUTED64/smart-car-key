@@ -43,8 +43,8 @@ import {
   IonCard,
   IonCardTitle,
 } from "@ionic/vue";
-import router from "../router";
-import Axios from "axios";
+// import router from "../router";
+// import Axios from "axios";
 
 export default {
   components: {

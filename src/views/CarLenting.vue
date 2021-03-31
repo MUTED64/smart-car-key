@@ -1,6 +1,11 @@
 <template>
   <base-layout page-title="车辆租赁">
     <div id="container"></div>
+
+    <ion-card>
+      <!-- <ion-card-title>ABC</ion-card-title> -->
+    </ion-card>
+
   </base-layout>
 </template>
 
@@ -38,15 +43,17 @@ export default {
             // 设置定位超时时间，默认：无穷大
             timeout: 10000,
             // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
-            buttonOffset: new AMap.Pixel(10, 20),
             //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
             zoomToAccuracy: true,
             //  定位按钮的排放位置,  RB表示右下
-            buttonPosition: "RB",
+            position: "RB",
+            offset:[10,70],
+            borderRadius: '10px',
+            buttonSize: '40px'
           });
-          map.addControl(new AMap.Scale());
+          map.addControl(new AMap.Scale({offset:[10,70]}));
           map.addControl(location);
-          await this.getLocation(location);
+          console.log((await this.getLocation(location)).position);
           // map.add(
           //     new AMap.Marker({
           //       position: position.position,
@@ -88,6 +95,18 @@ export default {
 <style scoped>
 #container {
   width: 100%;
-  height: 100%;
+  height: 85%;
+  z-index: -1;
+}
+
+ion-card{
+  position: absolute;
+  z-index:1;
+  width: 100%;
+  margin-left: 0%;
+  margin-top: -15%;
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+  height: 25%;
 }
 </style>
