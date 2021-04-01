@@ -2,17 +2,42 @@
   <base-layout page-title="车辆租赁">
     <div id="container"></div>
 
-    <ion-card>
-      <!-- <ion-card-title>ABC</ion-card-title> -->
+    <ion-card class="main">
+      <ion-card-title>附近车辆</ion-card-title>
+      <template v-if="loading">loading</template>
+      <template v-else>
+        <query-cars
+          v-for="(item,key,index) in data"
+          :car_id="item.car_id"
+          :car_type="item.car_type"
+          :pos_x="item.pos_x"
+          :state="item.state"
+          :key="index"
+        ></query-cars>
+      </template>
     </ion-card>
-
   </base-layout>
 </template>
 
 <script>
 import AMapLoader from "@amap/amap-jsapi-loader";
+import Axios from "axios";
+import qs from "qs";
+import QueryCars from "../components/QueryCars.vue";
+import { IonCard, IonCardTitle } from "@ionic/vue";
 
 export default {
+  components: {
+    QueryCars,
+    IonCard,
+    IonCardTitle,
+  },
+  data() {
+    return {
+      loading: true,
+      data: {},
+    };
+  },
   mounted() {
     this.getGis();
   },
@@ -47,13 +72,14 @@ export default {
             zoomToAccuracy: true,
             //  定位按钮的排放位置,  RB表示右下
             position: "RB",
-            offset:[10,70],
-            borderRadius: '10px',
-            buttonSize: '32px'
+            offset: [10, 70],
+            borderRadius: "10px",
+            buttonSize: "32px",
           });
-          map.addControl(new AMap.Scale({offset:[10,70]}));
+          map.addControl(new AMap.Scale({ offset: [10, 70] }));
           map.addControl(location);
           console.log((await this.getLocation(location)).position);
+          this.queryCarInfo();
           // map.add(
           //     new AMap.Marker({
           //       position: position.position,
@@ -88,6 +114,24 @@ export default {
         }
       });
     },
+    queryCarInfo() {
+      this.loading = true;
+      Axios.post(
+        "https://syml-gensokyo.cn:8888/index",
+        qs.stringify({
+          action: "QUERY_CAR_INFO",
+        }),
+        {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: true,
+        }
+      ).then((carInfo) => {
+        // console.log(carInfo.data);
+        this.data = carInfo.data.car_data;
+        console.log(carInfo.data.car_data);
+        this.loading = false;
+      });
+    },
   },
 };
 </script>
@@ -97,18 +141,18 @@ export default {
   width: 100%;
   height: 80vh;
   z-index: -1;
-  position: absolute;
+  position: fixed;
 }
 
-ion-card{
+ion-card.main {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   width: 100%;
   margin-left: 0%;
   margin-top: 72vh;
   border-top-left-radius: 1.5em;
   border-top-right-radius: 1.5em;
-  min-height:15vh;
+  min-height: 15vh;
   box-shadow: none;
 }
 </style>
