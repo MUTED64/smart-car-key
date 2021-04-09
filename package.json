@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "0.0.7",
+    "@capacitor-community/bluetooth-le": "^0.5.1",
     "@capacitor-community/http": "^0.3.0",
     "@capacitor/android": "^2.4.6",
-    "@capacitor/core": "2.4.6",
+    "@capacitor/core": "^2.4.6",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "axios": "^0.21.1",
