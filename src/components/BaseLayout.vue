@@ -88,8 +88,11 @@ ion-toolbar {
 ion-content{
   /* --ion-background-color: aqua; */
 }
+<<<<<<< HEAD
 
 ion-toolbar{
   position: absolute;
 }
+=======
+>>>>>>> c837da1cf362b5eff9cc2ac7f4e1c68b383b99ac
 </style>
