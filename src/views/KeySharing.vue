@@ -52,7 +52,7 @@ ion-card {
   top: 40%;
   transform: translateY(-50%);
   width: 90%;
-  border: 3px solid #3880ff;
+  border: 3px solid var(--ion-color-primary);
   box-shadow: none;
   border-radius: 12px;
 }

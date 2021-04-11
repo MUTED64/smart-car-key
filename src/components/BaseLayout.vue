@@ -1,7 +1,7 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
+    <ion-header class="ion-no-border" :translucent="true">
+      <ion-toolbar class="transparent">
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content fullscreen>
       <slot />
     </ion-content>
   </ion-page>
@@ -78,5 +78,14 @@ export default {
 
 #container a {
   text-decoration: none;
+}
+
+ion-toolbar {
+--background: transparent;
+--ion-color-base: transparent !important;
+}
+
+ion-content{
+  /* --ion-background-color: aqua; */
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <base-layout page-title="我的信息">
-    <ion-content fullscreen="true" slot="fixed">
+    <!-- <ion-content fullscreen="true" slot="fixed">
       <div class="card">
         <div class="header">
           <div class="avatar">
@@ -24,8 +24,8 @@
           <ion-button expand="full" color="secondary">View profile at ATP</ion-button>
         </div>
       </div>
-    </ion-content>
-    <!-- <ion-card class="main" color="light">
+    </ion-content> -->
+    <ion-card class="main" color="light">
       <div>
         <ion-avatar>
           <img
@@ -53,7 +53,7 @@
         </ion-toolbar>
       </ion-header>
       <my-cars></my-cars>
-    </ion-card>-->
+    </ion-card>
   </base-layout>
 </template>
 
@@ -62,7 +62,7 @@ ion-card.main {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
-  border: 3px solid #3880ff;
+  border: 3px solid var(--ion-color-primary);
   border-radius: 12px;
   margin-top: 7%;
 }
@@ -103,35 +103,37 @@ ion-content {
 </style>
 
 <script>
-import // IonAvatar,
-// IonCard,
-// IonCardTitle,
-// IonTitle,
-// IonToolbar,
-// IonHeader,
-// IonCardSubtitle,
-// IonItem,
-// IonCardContent,
-"@ionic/vue";
-// import MyCars from "../components/MyCars.vue";
+import {
+IonAvatar,
+IonCard,
+IonCardTitle,
+IonTitle,
+IonToolbar,
+IonHeader,
+IonCardSubtitle,
+IonItem,
+IonCardContent,
+} from "@ionic/vue";
+import MyCars from "../components/MyCars.vue";
 // import { Plugins } from '@capacitor/core';
-// import BaseLayout from '../components/BaseLayout.vue';
+import BaseLayout from '../components/BaseLayout.vue';
 
 // const { App } = Plugins;
 
 export default {
   name: "Folder",
   components: {
-    // IonAvatar,
-    // IonCard,
-    // IonCardTitle,
-    // IonTitle,
-    // IonToolbar,
-    // IonHeader,
-    // IonCardSubtitle,
-    // IonItem,
-    // IonCardContent,
-    // MyCars, // BaseLayout,
+    IonAvatar,
+    IonCard,
+    IonCardTitle,
+    IonTitle,
+    IonToolbar,
+    IonHeader,
+    IonCardSubtitle,
+    IonItem,
+    IonCardContent,
+    MyCars, 
+    BaseLayout,
   },
   data() {
     return {
