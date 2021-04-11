@@ -1,15 +1,15 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
+    <ion-header class="ion-no-border" :translucent="true">
+      <ion-toolbar class="transparent">
         <ion-buttons slot="start">
-          <ion-menu-button color="primary"></ion-menu-button>
+          <ion-menu-button :color="buttonColor?buttonColor:'primary'"></ion-menu-button>
         </ion-buttons>
         <ion-title>{{ pageTitle }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content fullscreen>
       <slot />
     </ion-content>
   </ion-page>
@@ -32,7 +32,7 @@ import { Plugins } from "@capacitor/core";
 const { App } = Plugins;
 
 export default {
-  props: ["pageTitle","isLogin"],
+  props: ["pageTitle","isLogin","buttonColor"],
   name: "Folder",
   components: {
     IonButtons,
@@ -78,5 +78,18 @@ export default {
 
 #container a {
   text-decoration: none;
+}
+
+ion-toolbar {
+--background: transparent;
+--ion-color-base: transparent !important;
+}
+
+ion-content{
+  /* --ion-background-color: aqua; */
+}
+
+ion-toolbar{
+  position: absolute;
 }
 </style>
