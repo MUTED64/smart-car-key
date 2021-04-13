@@ -8,7 +8,7 @@ const store = createStore({
     return {
       isLogin: false,
       userInfo: {
-        userId: "",
+        userId: "1145141919",
         N: null,
         PWi: "",
         M1:"",

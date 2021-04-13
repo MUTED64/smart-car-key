@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <base-layout buttonColor="primary">
     <ion-card id="top-bar">
       <ion-avatar>
@@ -35,63 +34,6 @@
 
     <ion-title class="ion-text-left">Rented Car</ion-title>
     <my-cars></my-cars>
-=======
-  <base-layout page-title="我的信息">
-    <!-- <ion-content fullscreen="true" slot="fixed">
-      <div class="card">
-        <div class="header">
-          <div class="avatar">
-            <img src="../../assets/player104.png" alt />
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="user-meta ion-text-center">
-            <h3 class="playername">Roger Federer</h3>
-            <h5 class="country">Switzerland</h5>
-            <h6 class="ranking">
-              Current ranking:
-              <ion-chip>
-                <ion-label>2</ion-label>
-              </ion-chip>
-            </h6>
-          </div>
-
-          <ion-button expand="full" color="primary">http://rogerfederer.com</ion-button>
-          <ion-button expand="full" color="secondary">@RogerFederer on Twitter</ion-button>
-          <ion-button expand="full" color="secondary">View profile at ATP</ion-button>
-        </div>
-      </div>
-    </ion-content> -->
-    <ion-card class="main" color="light">
-      <div>
-        <ion-avatar>
-          <img
-            src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1003701334,2835357039&fm=26&gp=0.jpg"
-          />
-        </ion-avatar>
-        <ion-card-title style>小明</ion-card-title>
-      </div>
-      <ion-header translucent>
-        <ion-toolbar color="primary">
-          <ion-title>个人信息</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-item color="light">
-        <ion-card-subtitle>电话</ion-card-subtitle>
-        <ion-card-content>1234567890</ion-card-content>
-      </ion-item>
-      <ion-item color="light">
-        <ion-card-subtitle>邮箱</ion-card-subtitle>
-        <ion-card-content>1234567890@outlook.com</ion-card-content>
-      </ion-item>
-      <ion-header translucent>
-        <ion-toolbar color="primary">
-          <ion-title>已租车辆</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <my-cars></my-cars>
-    </ion-card>
->>>>>>> c837da1cf362b5eff9cc2ac7f4e1c68b383b99ac
   </base-layout>
 </template>
 
@@ -149,7 +91,6 @@ ion-content {
 
 <script>
 import {
-<<<<<<< HEAD
   IonAvatar,
   IonTitle,
   IonItem,
@@ -161,21 +102,6 @@ import {
 import MyCars from "../components/MyCars.vue";
 // import { Plugins } from '@capacitor/core';
 import BaseLayout from "../components/BaseLayout.vue";
-=======
-IonAvatar,
-IonCard,
-IonCardTitle,
-IonTitle,
-IonToolbar,
-IonHeader,
-IonCardSubtitle,
-IonItem,
-IonCardContent,
-} from "@ionic/vue";
-import MyCars from "../components/MyCars.vue";
-// import { Plugins } from '@capacitor/core';
-import BaseLayout from '../components/BaseLayout.vue';
->>>>>>> c837da1cf362b5eff9cc2ac7f4e1c68b383b99ac
 
 // const { App } = Plugins;
 
@@ -184,7 +110,6 @@ export default {
   components: {
     IonAvatar,
     IonCard,
-<<<<<<< HEAD
     IonTitle,
     IonItem,
     MyCars,
@@ -192,17 +117,6 @@ export default {
     IonText,
     IonThumbnail,
     IonLabel,
-=======
-    IonCardTitle,
-    IonTitle,
-    IonToolbar,
-    IonHeader,
-    IonCardSubtitle,
-    IonItem,
-    IonCardContent,
-    MyCars, 
-    BaseLayout,
->>>>>>> c837da1cf362b5eff9cc2ac7f4e1c68b383b99ac
   },
   data() {
     return {
