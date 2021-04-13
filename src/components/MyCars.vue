@@ -35,4 +35,10 @@ img {
   height: 100%;
   object-fit: cover;
 }
+ion-card.car {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  border-radius: 12px;
+}
 </style>

@@ -11,7 +11,6 @@
         <ion-text>Sun,April 11,2021</ion-text>
       </div>
     </ion-card>
-
     <ion-title class="ion-text-left">Personal Details</ion-title>
     <ion-item lines="none">
       <ion-thumbnail slot="start">
@@ -37,58 +36,6 @@
   </base-layout>
 </template>
 
-<style scoped>
-ion-card.main {
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  border: 3px solid var(--ion-color-primary);
-  border-radius: 12px;
-  margin-top: 7%;
-}
-ion-avatar {
-  margin-top: 7%;
-  margin-bottom: 7%;
-  margin-left: auto;
-  margin-right: auto;
-}
-ion-card-title {
-  text-align: center;
-  font-weight: bolder;
-  font-size: xx-large;
-  margin-bottom: 5%;
-  --color: #808289;
-}
-ion-item {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-}
-ion-card.car {
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  border-radius: 12px;
-}
-ion-img {
-  width: 50%;
-}
-
-ion-content {
-  --background: url(../../assets/background_full.jpg) no-repeat top center/cover
-      fixed,
-    #fff;
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-#top-bar {
-  margin: 0;
-  border-radius: 0 0 1em 1em;
-}
-</style>
-
 <script>
 import {
   IonAvatar,
@@ -102,7 +49,7 @@ import {
 import MyCars from "../components/MyCars.vue";
 // import { Plugins } from '@capacitor/core';
 import BaseLayout from "../components/BaseLayout.vue";
-
+import "../theme/AboutMe.scss";
 // const { App } = Plugins;
 
 export default {
@@ -125,3 +72,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>

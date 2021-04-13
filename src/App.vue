@@ -2,70 +2,73 @@
   <IonApp>
     <IonSplitPane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
-        <ion-content>
-          <ion-list id="main-list">
-            <ion-list-header>智能汽车租赁</ion-list-header>
-            <ion-note>Smart Key App</ion-note>
-          </ion-list>
+        <ion-content color="primary">
+          <!-- <ion-list id="main-list"> -->
+          <ion-list-header>智能汽车租赁</ion-list-header>
+          <!-- <ion-note>Smart Key App</ion-note>
+          </ion-list>-->
 
-          <ion-list id="main-list">
-            <ion-note color="primary">信息查看</ion-note>
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
-              <ion-item
-                @click="selectedIndex = i"
-                router-direction="root"
-                :router-link="p.url"
-                lines="none"
-                detail="false"
-                class="hydrated"
-                :class="{ selected: selectedIndex === i }"
-              >
-                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
+          <ion-card class="list-card">
+            <ion-list id="main-list">
+              <ion-note color="primary">信息查看</ion-note>
+              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
+                <ion-item
+                  @click="selectedIndex = i"
+                  router-direction="root"
+                  :router-link="p.url"
+                  lines="none"
+                  detail="false"
+                  class="hydrated"
+                  :class="{ selected: selectedIndex === i }"
+                >
+                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                  <ion-label>{{ p.title }}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
 
-          <ion-list id="main-list">
-            <ion-note color="primary">车辆租借</ion-note>
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(2,5)" :key="i">
-              <ion-item
-                @click="selectedIndex = i+2"
-                router-direction="root"
-                :router-link="p.url"
-                lines="none"
-                detail="false"
-                class="hydrated"
-                :class="{ selected: selectedIndex === i+2 }"
-              >
-                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
+            <ion-list id="main-list">
+              <ion-note color="primary">车辆租借</ion-note>
+              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(2,5)" :key="i">
+                <ion-item
+                  @click="selectedIndex = i+2"
+                  router-direction="root"
+                  :router-link="p.url"
+                  lines="none"
+                  detail="false"
+                  class="hydrated"
+                  :class="{ selected: selectedIndex === i+2 }"
+                >
+                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                  <ion-label>{{ p.title }}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
 
-          <ion-list id="main-list">
-            <ion-note color="primary">关于</ion-note>
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(5,)" :key="i">
-              <ion-item
-                @click="selectedIndex = i+5"
-                router-direction="root"
-                :router-link="p.url"
-                lines="none"
-                detail="false"
-                class="hydrated"
-                :class="{ selected: selectedIndex === i+5 }"
-              >
-                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
+            <ion-list id="main-list">
+              <ion-note color="primary">关于</ion-note>
+              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(5,)" :key="i">
+                <ion-item
+                  @click="selectedIndex = i+5"
+                  router-direction="root"
+                  :router-link="p.url"
+                  lines="none"
+                  detail="false"
+                  class="hydrated"
+                  :class="{ selected: selectedIndex === i+5 }"
+                >
+                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                  <ion-label>{{ p.title }}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
 
-          <div>
-            <ion-button v-show="!isLogin" expand="block" fill="outline" @click="login">登录</ion-button>
-            <ion-button v-show="isLogin" expand="block" fill="outline" @click="logout">注销</ion-button>
-          </div>
+            <div>
+              <ion-button v-show="!isLogin" expand="block" fill="outline" @click="login">登录</ion-button>
+              <ion-button v-show="isLogin" expand="block" fill="outline" @click="logout">注销</ion-button>
+            </div>
+          </ion-card>
+          <ion-card class="fill"></ion-card>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -329,5 +332,26 @@ div {
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.list-card {
+  margin: 10px 10px 0 -10px;
+  box-shadow: none !important;
+  border-radius: 0;
+  border-top-right-radius: 1em;
+  position: absolute;
+  width: 95%;
+  padding-bottom: 20px;
+}
+
+.fill {
+  margin: 0 10px 0 -10px;
+  bottom: 0;
+  position: absolute;
+  box-shadow: none !important;
+  border-radius: 0;
+  height: 50vh;
+  width: 95%;
+  z-index: -1000;
 }
 </style>
