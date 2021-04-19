@@ -10,10 +10,13 @@ const store = createStore({
       userInfo: {
         userId: "1145141919",
         N: null,
-        PWi: "",
-        M1:"",
-        M2:"",
-        RNUi: "",
+        PWi: "123",
+        M1:"123",
+        M2:"123",
+        treg:"",
+        IDSNj: "123",
+        RNUi: "123",
+        S:"",
         KEYus: "",
         KEYusn : "",
         RNs: ""
@@ -23,6 +26,7 @@ const store = createStore({
   getters: {
     //获取登录状态
     isLogin: (state) => state.isLogin,
+    userInfo: (state) => state.userInfo
   },
 
   // 设置属性状态

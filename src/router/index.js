@@ -82,6 +82,13 @@ const routes = [
       needLogin: false
     },
   },
+  {
+    path: "/folder/au",
+    component: () => import("../views/Authorization.vue"),
+    meta: {
+      needLogin: false
+    },
+  },
 ];
 
 const router = createRouter({
