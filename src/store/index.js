@@ -6,16 +6,16 @@ const store = createStore({
   plugins: [createPersistedState()],
   state() {
     return {
-      isLogin: false,
+      isLogin: true,
       userInfo: {
         userId: "1145141919",
         N: null,
-        PWi: "123",
-        M1:"123",
-        M2:"123",
+        PWi: "1234567812345678123456781234567812345678123456781234567812345678",
+        M1:"1234",
+        M2:"1234567812345678123456781234567812345678123456781234567812345678",
         treg:"",
-        IDSNj: "123",
-        RNUi: "123",
+        IDSNj: "1234",
+        RNUi: "1234",
         S:"",
         KEYus: "",
         KEYusn : "",
