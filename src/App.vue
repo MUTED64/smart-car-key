@@ -2,14 +2,35 @@
   <IonApp>
     <IonSplitPane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
-        <ion-content color="primary">
+        <ion-content>
           <!-- <ion-list id="main-list"> -->
-          <ion-list-header>智能汽车租赁</ion-list-header>
+          <ion-card id="top-card" color="primary">
+            <ion-list-header color="primary">
+              <ion-title>
+                <h1>MENU</h1>
+              </ion-title>
+            </ion-list-header>
+          </ion-card>
           <!-- <ion-note>Smart Key App</ion-note>
           </ion-list>-->
-
-          <ion-card class="list-card">
-            <ion-list id="main-list">
+          <!-- <ion-list id="main-list" lines="none"> -->
+          <ion-list id="menulist">
+            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,6)" :key="i">
+              <ion-item
+                @click="selectedIndex = i"
+                router-direction="root"
+                :router-link="p.url"
+                lines="none"
+                detail="false"
+                class="hydrated menuitem"
+                :class="{ selected: selectedIndex === i }"
+              >
+                <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+          <!-- <ion-list id="main-list">
               <ion-note color="primary">信息查看</ion-note>
               <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
                 <ion-item
@@ -61,14 +82,24 @@
                   <ion-label>{{ p.title }}</ion-label>
                 </ion-item>
               </ion-menu-toggle>
-            </ion-list>
+          </ion-list>-->
 
-            <div>
-              <ion-button v-show="!isLogin" expand="block" fill="outline" @click="login">登录</ion-button>
-              <ion-button v-show="isLogin" expand="block" fill="outline" @click="logout">注销</ion-button>
-            </div>
-          </ion-card>
-          <ion-card class="fill"></ion-card>
+          <div class="loginwrapper">
+            <ion-button
+              class="loginbutton"
+              v-show="!isLogin"
+              expand="block"
+              fill="solid"
+              @click="login"
+            >Log In</ion-button>
+            <ion-button
+              class="loginbutton"
+              v-show="isLogin"
+              expand="block"
+              fill="solid"
+              @click="logout"
+            >Log Out</ion-button>
+          </div>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -83,15 +114,16 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonList,
   IonListHeader,
   IonMenu,
   IonMenuToggle,
-  IonNote,
   IonRouterOutlet,
   IonSplitPane,
   IonButton,
   menuController,
+  IonCard,
+  IonTitle,
+  IonList,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -115,52 +147,48 @@ export default defineComponent({
     IonIcon,
     IonItem,
     IonLabel,
-    IonList,
     IonListHeader,
     IonMenu,
     IonMenuToggle,
-    IonNote,
     IonRouterOutlet,
     IonSplitPane,
     IonButton,
+    IonCard,
+    IonTitle,
+    IonList,
   },
   setup() {
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: "我的信息",
+        title: "User Info",
         url: "/folder/AboutMe",
         mdIcon: personCircleSharp,
       },
       {
-        title: "行驶状况",
+        title: "Exception Log",
         url: "/folder/RunningState",
         mdIcon: speedometerSharp,
       },
       {
-        title: "车辆租赁",
+        title: "Car Rental",
         url: "/folder/CarLenting",
         mdIcon: carSportSharp,
       },
       {
-        title: "开关车锁",
+        title: "Using Key",
         url: "/folder/OpenAndClose",
         mdIcon: lockOpenSharp,
       },
       {
-        title: "共享钥匙",
+        title: "Share Key",
         url: "/folder/KeySharing",
         mdIcon: keySharp,
       },
       {
-        title: "项目信息",
+        title: "About Us",
         url: "/folder/AboutProject",
         mdIcon: informationCircleSharp,
-      },
-      {
-        title: "联系我们",
-        url: "/folder/ContactUs",
-        mdIcon: callSharp,
       },
     ];
 
@@ -213,9 +241,6 @@ ion-menu ion-content {
 }
 
 ion-menu.md ion-content {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 20px;
   --padding-bottom: 20px;
 }
 
@@ -334,7 +359,7 @@ div {
   margin-right: auto;
 }
 
-.list-card {
+/* .list-card {
   margin: 10px 10px 0 -10px;
   box-shadow: none !important;
   border-radius: 0;
@@ -342,16 +367,24 @@ div {
   position: absolute;
   width: 95%;
   padding-bottom: 20px;
+} */
+
+#top-card {
+  margin: 0;
+  border-radius: 0 0 1em 1em;
+  min-height: 16.18vh;
 }
 
-.fill {
-  margin: 0 10px 0 -10px;
-  bottom: 0;
-  position: absolute;
-  box-shadow: none !important;
-  border-radius: 0;
-  height: 50vh;
-  width: 95%;
-  z-index: -1000;
+.loginwrapper {
+  width: 90%;
+}
+.loginbutton {
+  --border-radius: 1em;
+}
+.menuitem {
+  margin: 8px;
+}
+#menulist {
+  margin: 10px;
 }
 </style>
