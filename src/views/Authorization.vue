@@ -17,6 +17,7 @@
         </ion-item>
       </ion-list>
       <ion-button @click="authorization()">submit</ion-button>
+      <ion-button @click="return_car()">return</ion-button>
     </form>
   </base-layout>
 </template>
@@ -31,7 +32,7 @@ export default {
   components: { BaseLayout },
   data() {
     return {
-      pwaut: "",
+      pwaut: "114514",
       Biaut: "",
       Bireg: "",
     };
@@ -39,32 +40,35 @@ export default {
   methods: {
     async authorization() {
       //   const Bireg = Rec(Biaut,S);
-      const Bireg =
-        "1234567812345678123456781234567812345678123456781234567812345678";
-      const PWaut = SM3.digest(this.pwaut + Bireg.toString(16), "hex", "hex");
+      const Bireg = "123456";
+      const PWaut = SM3.digest(this.pwaut + Bireg.toString(16), "utf8", "hex");
       const PWi = this.$store.getters.userInfo.PWi;
+      const M1 = this.$store.getters.userInfo.M1;
       const M2 = this.$store.getters.userInfo.M2;
-      //   if (SM3.digest(PWaut) === SM3.digest(PWi)) {
+      //   if (SM3.digest(PWaut) === PWi) {
       const ri = this.xor(PWaut, M2);
 
       const RNUi = this.getRandomHex();
-      const M3 = this.xor(RNUi ,ri);
+      const M3 = this.xor(RNUi, ri);
       const IDi = this.$store.getters.userInfo.userId;
       const IDSNj = this.$store.getters.userInfo.IDSNj;
       //IDi十进制还是十六进制
-      const M4 = SM3.digest(IDi + IDSNj + ri + RNUi, "hex", "hex");
+      const M4 = SM3.digest(IDi + this.dec2hex(IDSNj) + ri + RNUi, "utf8", "hex");
+      console.log(`SM3:IDi+RNUi:${SM3.digest(IDi + RNUi, "utf8", "hex")}`);
       const M5 = this.xor(
-        SM3.digest(IDi + RNUi, "hex", "hex"),
-        IDSNj
+        SM3.digest(IDi + RNUi, "utf8", "hex"),
+        this.dec2hex(IDSNj)
       );
-      
+
       const res = await Axios.post(
         "https://syml-gensokyo.cn:8888/index",
         qs.stringify({
           action: "RENT_CAR_REQUEST",
-          M3: M3,
-          M4: M4,
-          M5: M5,
+          m1: M1,
+          m2: M2,
+          m3: M3,
+          m4: M4,
+          m5: M5,
           t_reg: 1617001449,
         }),
         {
@@ -93,6 +97,8 @@ export default {
       console.log(`EkeyUS: ${EkeyUS}`);
       console.log(`M6: ${M6}`);
       console.log(`M7: ${M7}`);
+
+      console.log(SM3.digest("114514", "utf8", "hex"));
     },
     getRandomHex() {
       let result = "";
@@ -117,6 +123,12 @@ export default {
       return hex.join("");
     },
     xor(a, b) {
+      while (a.length > b.length) {
+        b = "0" + b;
+      }
+      while (a.length < b.length) {
+        a = "0" + a;
+      }
       var x = this.hexToBytes(a);
       var y = this.hexToBytes(b);
       var z = new Array();
@@ -125,6 +137,39 @@ export default {
       }
       return this.bytesToHex(z);
     },
+    dec2hex(str) {
+      var dec = str.toString().split(""),
+        sum = [],
+        hex = [],
+        i,
+        s;
+      while (dec.length) {
+        s = 1 * dec.shift();
+        for (i = 0; s || i < sum.length; i++) {
+          s += (sum[i] || 0) * 10;
+          sum[i] = s % 16;
+          s = (s - sum[i]) / 16;
+        }
+      }
+      while (sum.length) {
+        hex.push(sum.pop().toString(16));
+      }
+      return hex.join("");
+    },
+    async return_car(){
+      const res = await Axios.post(
+        "https://syml-gensokyo.cn:8888/index",
+        qs.stringify({
+          action: "RETURN_CAR"
+        }),
+        {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: true,
+        }
+      );
+
+      console.log(res);
+    }
   },
 };
 </script>
