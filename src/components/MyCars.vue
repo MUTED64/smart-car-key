@@ -13,7 +13,9 @@
       <ion-row>
         <ion-col>
           <div class="ion-text-center">
-            <ion-text color="dark"><h1 style="display: inline;">￥114</h1></ion-text><ion-text>/day</ion-text>
+            <ion-text color="dark"
+              ><h1 style="display: inline;">￥114</h1></ion-text
+            ><ion-text>/day</ion-text>
           </div>
         </ion-col>
         <ion-col>
@@ -31,6 +33,7 @@
 
 <script>
 import { IonCardContent, IonCard, IonButton } from "@ionic/vue";
+import "../theme/MyCars.scss";
 
 export default {
   components: {
@@ -49,30 +52,6 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-ion-card.car {
-  margin-left: auto;
-  margin-right: auto;
-  width: 84%;
-  border-radius: 1em;
-}
-.car-overview {
-  min-height: 2rem;
-  margin-top: 3%;
-}
-#car-brand {
-  height: 2rem;
-  float: left;
-  margin-left: 7%;
-  letter-spacing: 1.5px;
-  font-size: 1.4rem;
-}
-#car-name {
-  height: 2rem;
-  padding: 0;
-  float: right;
-  margin-right: 7%;
-  font-size: 1.2rem;
-}
 ion-button {
   --padding-bottom: 0;
   --padding-top: 0;
@@ -81,6 +60,7 @@ ion-button {
   margin: 0;
   min-height: 60px;
   max-height: 60px;
+  font-size: 18px;
 }
 ion-grid {
   padding: 0;
@@ -91,6 +71,10 @@ ion-row {
 ion-col {
   padding: 0;
 }
+ion-text h1 {
+  margin: 0;
+  line-height: 53px;
+}
 .right-bottom-button {
   --border-top-left-radius: 1rem;
   --border-top-right-radius: 0;
@@ -98,9 +82,5 @@ ion-col {
   --border-bottom-right-radius: 1rem;
   --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
     var(--border-bottom-right-radius) var(--border-bottom-left-radius);
-}
-ion-text h1{
-  margin: 0;
-  line-height: 53px;
 }
 </style>

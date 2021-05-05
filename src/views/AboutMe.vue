@@ -10,24 +10,26 @@
       </div>
     </ion-card>
     <ion-title class="ion-text-left">Personal Details</ion-title>
-    <ion-item lines="none">
-      <ion-thumbnail slot="start">
-        <img src="assets/circle.png" />
-      </ion-thumbnail>
-      <ion-label>
-        <h2>phone number</h2>
-        <p>1234567890</p>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-thumbnail slot="start">
-        <img src="assets/circle.png" />
-      </ion-thumbnail>
-      <ion-label>
-        <h2>E-mail</h2>
-        <p>1234567890@outlook.com</p>
-      </ion-label>
-    </ion-item>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <img src="assets/circle.png" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>phone number</h2>
+          <p>1234567890</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <img src="assets/circle.png" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>E-mail</h2>
+          <p>1234567890@outlook.com</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
 
     <ion-title class="ion-text-left">Rented Car</ion-title>
     <my-cars></my-cars>
@@ -103,7 +105,16 @@ ion-thumbnail {
   max-height: 1.5rem;
 }
 
-ion-item{
+ion-item {
   margin-left: 5%;
+}
+
+ion-title {
+  margin-bottom: 7px;
+}
+
+ion-list{
+  padding: 0;
+  margin-bottom: 20px;
 }
 </style>

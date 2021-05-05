@@ -1,0 +1,25 @@
+ion-card.car {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 84%;
+  border-radius: 1em;
+}
+.car-overview {
+  min-height: 2rem;
+  margin-top: 3%;
+}
+#car-brand {
+  height: 2rem;
+  float: left;
+  margin-left: 7%;
+  letter-spacing: 1.5px;
+  font-size: 1.4rem;
+}
+#car-name {
+  height: 2rem;
+  padding: 0;
+  float: right;
+  margin-right: 7%;
+  font-size: 1.2rem;
+}

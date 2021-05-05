@@ -150,8 +150,8 @@ ion-card.main {
   width: 100%;
   margin-left: 0%;
   margin-top: 72vh;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
   min-height: 15vh;
   box-shadow: none;
 }
