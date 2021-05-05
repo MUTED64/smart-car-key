@@ -41,15 +41,8 @@ const routes = [
     },
   },
   {
-    path: "/folder/AboutProject",
-    component: () => import("../views/AboutProject.vue"),
-    meta: {
-      needLogin: false
-    },
-  },
-  {
-    path: "/folder/ContactUs",
-    component: () => import("../views/ContactUs.vue"),
+    path: "/folder/AboutUs",
+    component: () => import("../views/AboutUs.vue"),
     meta: {
       needLogin: false
     },

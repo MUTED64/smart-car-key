@@ -103,4 +103,11 @@ ion-text h1 {
   margin-top: 14px;
   margin-bottom: 4px;
 }
+img {
+  display: block;
+  width: 70%;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

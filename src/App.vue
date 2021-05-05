@@ -128,7 +128,7 @@ export default defineComponent({
       },
       {
         title: "About Us",
-        url: "/folder/AboutProject",
+        url: "/folder/AboutUs",
         mdIcon: informationCircleSharp,
       },
     ];
