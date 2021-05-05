@@ -2,31 +2,29 @@
   <base-layout buttonColor="primary">
     <ion-card id="top-bar">
       <ion-avatar>
-        <img
-          src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1003701334,2835357039&fm=26&gp=0.jpg"
-        />
+        <img src="../../public/assets/avatar.png" />
       </ion-avatar>
-      <div class="ion-text-center">
-        <ion-title>Hello, Muted</ion-title>
-        <ion-text>Sun,April 11,2021</ion-text>
+      <div class="ion-text-center sub">
+        <ion-title id="hello" color="light">Hello, Muted</ion-title>
+        <ion-text color="light">Sun,April 11,2021</ion-text>
       </div>
     </ion-card>
     <ion-title class="ion-text-left">Personal Details</ion-title>
     <ion-item lines="none">
       <ion-thumbnail slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+        <img src="assets/circle.png" />
       </ion-thumbnail>
       <ion-label>
-        <h1>phone number</h1>
+        <h2>phone number</h2>
         <p>1234567890</p>
       </ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-thumbnail slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+        <img src="assets/circle.png" />
       </ion-thumbnail>
       <ion-label>
-        <h1>E-mail</h1>
+        <h2>E-mail</h2>
         <p>1234567890@outlook.com</p>
       </ion-label>
     </ion-item>
@@ -74,4 +72,38 @@ export default {
 </script>
 
 <style scoped>
+#top-bar {
+  position: relative;
+  --background: url("../../assets/AboutMeBackground.png") no-repeat 0 0 / 100%
+      fixed,
+    #fff;
+  background-size: 100% auto;
+  margin-bottom: 5%;
+}
+
+#hello {
+  margin-bottom: 3%;
+  font-size: 30px;
+}
+
+.sub {
+  margin-bottom: 6%;
+}
+
+ion-avatar {
+  width: 22%;
+  --width: 22%;
+  height: var(--width);
+  --border-radius: 0;
+  margin-bottom: 4%;
+}
+
+ion-thumbnail {
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+}
+
+ion-item{
+  margin-left: 5%;
+}
 </style>

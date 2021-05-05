@@ -3,19 +3,15 @@
     <IonSplitPane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <!-- <ion-list id="main-list"> -->
           <ion-card id="top-card" color="primary">
-            <ion-list-header color="primary">
-              <ion-title>
-                <h1>MENU</h1>
-              </ion-title>
-            </ion-list-header>
+              <img id="menu-logo" src="assets/MENU.png"/>
           </ion-card>
-          <!-- <ion-note>Smart Key App</ion-note>
-          </ion-list>-->
-          <!-- <ion-list id="main-list" lines="none"> -->
           <ion-list id="menulist">
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,6)" :key="i">
+            <ion-menu-toggle
+              auto-hide="false"
+              v-for="(p, i) in appPages.slice(0, 6)"
+              :key="i"
+            >
               <ion-item
                 @click="selectedIndex = i"
                 router-direction="root"
@@ -26,63 +22,10 @@
                 :class="{ selected: selectedIndex === i }"
               >
                 <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
+                <ion-label id="menu-list-item">{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-          <!-- <ion-list id="main-list">
-              <ion-note color="primary">信息查看</ion-note>
-              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(0,2)" :key="i">
-                <ion-item
-                  @click="selectedIndex = i"
-                  router-direction="root"
-                  :router-link="p.url"
-                  lines="none"
-                  detail="false"
-                  class="hydrated"
-                  :class="{ selected: selectedIndex === i }"
-                >
-                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                  <ion-label>{{ p.title }}</ion-label>
-                </ion-item>
-              </ion-menu-toggle>
-            </ion-list>
-
-            <ion-list id="main-list">
-              <ion-note color="primary">车辆租借</ion-note>
-              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(2,5)" :key="i">
-                <ion-item
-                  @click="selectedIndex = i+2"
-                  router-direction="root"
-                  :router-link="p.url"
-                  lines="none"
-                  detail="false"
-                  class="hydrated"
-                  :class="{ selected: selectedIndex === i+2 }"
-                >
-                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                  <ion-label>{{ p.title }}</ion-label>
-                </ion-item>
-              </ion-menu-toggle>
-            </ion-list>
-
-            <ion-list id="main-list">
-              <ion-note color="primary">关于</ion-note>
-              <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages.slice(5,)" :key="i">
-                <ion-item
-                  @click="selectedIndex = i+5"
-                  router-direction="root"
-                  :router-link="p.url"
-                  lines="none"
-                  detail="false"
-                  class="hydrated"
-                  :class="{ selected: selectedIndex === i+5 }"
-                >
-                  <ion-icon slot="start" :md="p.mdIcon"></ion-icon>
-                  <ion-label>{{ p.title }}</ion-label>
-                </ion-item>
-              </ion-menu-toggle>
-          </ion-list>-->
 
           <div class="loginwrapper">
             <ion-button
@@ -91,14 +34,16 @@
               expand="block"
               fill="solid"
               @click="login"
-            >Log In</ion-button>
+              >Log In</ion-button
+            >
             <ion-button
               class="loginbutton"
               v-show="isLogin"
               expand="block"
               fill="solid"
               @click="logout"
-            >Log Out</ion-button>
+              >Log Out</ion-button
+            >
           </div>
         </ion-content>
       </ion-menu>
@@ -114,7 +59,6 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonListHeader,
   IonMenu,
   IonMenuToggle,
   IonRouterOutlet,
@@ -122,7 +66,6 @@ import {
   IonButton,
   menuController,
   IonCard,
-  IonTitle,
   IonList,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
@@ -147,14 +90,12 @@ export default defineComponent({
     IonIcon,
     IonItem,
     IonLabel,
-    IonListHeader,
     IonMenu,
     IonMenuToggle,
     IonRouterOutlet,
     IonSplitPane,
     IonButton,
     IonCard,
-    IonTitle,
     IonList,
   },
   setup() {
@@ -372,7 +313,9 @@ div {
 #top-card {
   margin: 0;
   border-radius: 0 0 1em 1em;
-  min-height: 16.18vh;
+  min-height: 24vh;
+  position: relative;
+  box-shadow: none;
 }
 
 .loginwrapper {
@@ -386,5 +329,15 @@ div {
 }
 #menulist {
   margin: 10px;
+}
+#menu-logo{
+  margin-left: 30%;
+  margin-right: 10%;
+  bottom: 20%;
+  position: absolute;
+  width: 60%;
+}
+#menu-list-item{
+  font-size: 1.1rem;
 }
 </style>
