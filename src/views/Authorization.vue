@@ -24,15 +24,16 @@
 
 <script>
 import BaseLayout from "../components/BaseLayout.vue";
+import { IonLabel, IonItem, IonInput, IonButton,IonList } from "@ionic/vue";
 const { SM3 } = require("gm-crypto");
 import Axios from "axios";
 import qs from "qs";
 
 export default {
-  components: { BaseLayout },
+  components: { BaseLayout, IonLabel, IonItem, IonInput, IonButton,IonList },
   data() {
     return {
-      pwaut: "114514",
+      pwaut: "",
       Biaut: "",
       Bireg: "",
     };
@@ -53,7 +54,11 @@ export default {
       const IDi = this.$store.getters.userInfo.userId;
       const IDSNj = this.$store.getters.userInfo.IDSNj;
       //IDi十进制还是十六进制
-      const M4 = SM3.digest(IDi + this.dec2hex(IDSNj) + ri + RNUi, "utf8", "hex");
+      const M4 = SM3.digest(
+        IDi + this.dec2hex(IDSNj) + ri + RNUi,
+        "utf8",
+        "hex"
+      );
       console.log(`SM3:IDi+RNUi:${SM3.digest(IDi + RNUi, "utf8", "hex")}`);
       const M5 = this.xor(
         SM3.digest(IDi + RNUi, "utf8", "hex"),
@@ -97,6 +102,7 @@ export default {
       console.log(`EkeyUS: ${EkeyUS}`);
       console.log(`M6: ${M6}`);
       console.log(`M7: ${M7}`);
+      console.log(this.pwaut);
 
       console.log(SM3.digest("114514", "utf8", "hex"));
     },
@@ -156,11 +162,11 @@ export default {
       }
       return hex.join("");
     },
-    async return_car(){
+    async return_car() {
       const res = await Axios.post(
         "https://syml-gensokyo.cn:8888/index",
         qs.stringify({
-          action: "RETURN_CAR"
+          action: "RETURN_CAR",
         }),
         {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -169,10 +175,9 @@ export default {
       );
 
       console.log(res);
-    }
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

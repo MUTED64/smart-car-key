@@ -13,18 +13,14 @@
       <ion-row>
         <ion-col>
           <div class="ion-text-center">
-            <ion-text color="dark"
-              ><h1 style="display: inline;">￥114</h1></ion-text
-            ><ion-text>/day</ion-text>
+            <ion-text color="dark">
+              <h1 style="display: inline;">￥114</h1>
+            </ion-text>
+            <ion-text>/day</ion-text>
           </div>
         </ion-col>
         <ion-col>
-          <ion-button
-            class="right-bottom-button"
-            expand="block"
-            color="tertiary"
-            >Details</ion-button
-          >
+          <ion-button class="right-bottom-button" expand="block" color="tertiary">Details</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -32,7 +28,16 @@
 </template>
 
 <script>
-import { IonCardContent, IonCard, IonButton } from "@ionic/vue";
+import {
+  IonCardContent,
+  IonCard,
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCardTitle,
+  IonText,
+} from "@ionic/vue";
 import "../theme/MyCars.scss";
 
 export default {
@@ -40,6 +45,11 @@ export default {
     IonCardContent,
     IonCard,
     IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCardTitle,
+    IonText,
   },
 };
 </script>

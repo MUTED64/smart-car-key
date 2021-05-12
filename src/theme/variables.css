@@ -64,7 +64,7 @@
   --ion-font-family: 'Product Sans', sans-serif
 }
 
-ion-modal .modal-wrapper {
+.modal1 .modal-wrapper {
   position: absolute;
   display: block;
   top: calc(100% - (61.8vh));
@@ -75,7 +75,7 @@ ion-modal .modal-wrapper {
 
 .modal1,
 .modal1 ion-backdrop {
-  pointer-events: none;
+  /* pointer-events: none; */
   --backdrop-opacity: 0;
 }
 

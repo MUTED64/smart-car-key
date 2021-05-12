@@ -82,6 +82,13 @@ const routes = [
       needLogin: false
     },
   },
+  {
+    path: "/folder/cu",
+    component: () => import("../views/ContactUs.vue"),
+    meta: {
+      needLogin: false
+    },
+  },
 ];
 
 const router = createRouter({

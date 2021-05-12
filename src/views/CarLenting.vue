@@ -1,5 +1,5 @@
 <template>
-  <base-layout page-title="车辆租赁">
+  <base-layout>
     <div id="container"></div>
 
     <ion-card class="main">
@@ -7,7 +7,7 @@
       <template v-if="loading">loading</template>
       <template v-else>
         <query-cars
-          v-for="(item,key,index) in data"
+          v-for="(item, key, index) in data"
           :car_id="item.car_id"
           :car_type="item.car_type"
           :pos_x="item.pos_x"
@@ -35,7 +35,13 @@ export default {
   data() {
     return {
       loading: true,
-      data: {},
+      data: [{
+        "car_id":"123",
+        "car_type":"abc",
+        "pos_x":"123",
+        "pos_y":"123",
+        'state':"ok",
+      }],
     };
   },
   mounted() {
@@ -127,7 +133,7 @@ export default {
         }
       ).then((carInfo) => {
         // console.log(carInfo.data);
-        this.data = carInfo.data.car_data;
+        // this.data = carInfo.data.car_data;
         console.log(carInfo.data.car_data);
         this.loading = false;
       });

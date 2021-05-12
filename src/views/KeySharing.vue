@@ -1,30 +1,29 @@
 <template>
   <base-layout>
     <ion-content fullscreen="true" slot="fixed">
-      <br /><br />
-      <ion-title class="page-title"><h1>Share Key</h1></ion-title>
+      <br />
+      <br />
+      <ion-title class="page-title">
+        <h1>Share Key</h1>
+      </ion-title>
       <div class="tips-wrapper">
-        <ion-text color="medium" class="tips-text"
-          >On this page, you can send your car keys to others or receive keys
-          shared by others.</ion-text
-        >
+        <ion-text color="medium" class="tips-text">
+          On this page, you can send your car keys to others or receive keys
+          shared by others.
+        </ion-text>
       </div>
 
-      <ion-title class="sub-title"><h2>Functions</h2></ion-title>
+      <ion-title class="sub-title">
+        <h2>Functions</h2>
+      </ion-title>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-card
-              button="true"
-              href="/folder/AboutMe"
-              class="function-card"
-            >
+            <ion-card button="true" href="/folder/AboutMe" class="function-card">
               <ion-thumbnail>
                 <img src="assets/Send.png" alt="Send" />
               </ion-thumbnail>
-              <ion-card-title class="ion-text-center function-title"
-                >Send</ion-card-title
-              >
+              <ion-card-title class="ion-text-center function-title">Send</ion-card-title>
             </ion-card>
           </ion-col>
           <ion-col>
@@ -32,19 +31,19 @@
               <ion-thumbnail>
                 <img src="assets/Receive.png" alt="Receive" />
               </ion-thumbnail>
-              <ion-card-title class="ion-text-center function-title"
-                >Receive</ion-card-title
-              >
+              <ion-card-title class="ion-text-center function-title">Receive</ion-card-title>
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-title class="sub-title"><h2>Authority</h2></ion-title>
+      <ion-title class="sub-title">
+        <h2>Authority</h2>
+      </ion-title>
       <ion-card button="true" class="authority-card">
         <ion-item lines="none" color="transparent">
-          <ion-label
-            ><h1>Exclusive</h1>
+          <ion-label>
+            <h1>Exclusive</h1>
             <p class="sub-text">Stop others from using my key</p>
           </ion-label>
           <ion-thumbnail slot="end" id="stop-icon">
@@ -62,7 +61,7 @@
           <ion-label>接收钥匙</ion-label>
         </ion-segment-button>
       </ion-segment>
-    </ion-toolbar> -->
+    </ion-toolbar>-->
     <!-- <ion-card>
       <ion-card-title v-if="state ==='sharer'">请输入接收用户的用户名和手机号</ion-card-title>
       <ion-card-title v-else>请输入分享用户的用户名和手机号</ion-card-title>
@@ -93,16 +92,41 @@
         </ion-list>
         <ion-button type="submit" expand="block">提交</ion-button>
       </form>
-    </ion-card> -->
+    </ion-card>-->
   </base-layout>
 </template>
 
 <script>
-import {} from "@ionic/vue";
+import {
+  IonTitle,
+  IonThumbnail,
+  IonGrid,
+  IonCol,
+  IonRow,
+  IonItem,
+  IonText,
+  IonCard,
+  IonCardTitle,
+  IonContent,
+  IonLabel,
+} from "@ionic/vue";
 import { defineComponent } from "vue";
 // import {stopCircleOutline} from "ionicons/icons"
 
 export default defineComponent({
+  components: {
+    IonTitle,
+    IonThumbnail,
+    IonGrid,
+    IonCol,
+    IonRow,
+    IonItem,
+    IonText,
+    IonCard,
+    IonCardTitle,
+    IonContent,
+    IonLabel,
+  },
   data() {
     return {
       state: "sharer",

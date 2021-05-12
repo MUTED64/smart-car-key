@@ -2,7 +2,9 @@
   <base-layout buttonColor="light">
     <ion-content fullscreen="true" slot="fixed">
       <ion-card class="main">
-        <ion-title id="using-tips"><h4>Choose one of your cars:</h4></ion-title>
+        <ion-title id="using-tips">
+          <h4>Choose one of your cars:</h4>
+        </ion-title>
         <ion-card class="car">
           <div class="car-overview">
             <ion-card-title id="car-brand">PHIDEON</ion-card-title>
@@ -17,18 +19,13 @@
             <ion-row>
               <ion-col>
                 <div class="ion-text-center">
-                  <ion-text
-                    ><h4>LOCKED</h4></ion-text
-                  >
+                  <ion-text>
+                    <h4>LOCKED</h4>
+                  </ion-text>
                 </div>
               </ion-col>
               <ion-col>
-                <ion-button
-                  class="right-bottom-button"
-                  expand="block"
-                  color="primary"
-                  >OPEN</ion-button
-                >
+                <ion-button class="right-bottom-button" expand="block" color="primary">OPEN</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -39,9 +36,34 @@
 </template>
 
 <script>
+import {
+  IonCardContent,
+  IonCard,
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCardTitle,
+  IonText,
+  IonContent,
+  IonTitle,
+} from "@ionic/vue";
 import "../theme/MyCars.scss";
 
-export default {};
+export default {
+  components: {
+    IonCardContent,
+    IonCard,
+    IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCardTitle,
+    IonText,
+    IonContent,
+    IonTitle,
+  },
+};
 </script>
 
 <style scoped>
@@ -90,15 +112,15 @@ ion-text h1 {
   line-height: 53px;
 }
 .right-bottom-button {
-    --border-top-left-radius: 1rem;
-    --border-top-right-radius: 0;
-    --border-bottom-left-radius: 0;
-    --border-bottom-right-radius: 1rem;
-    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
-      var(--border-bottom-right-radius) var(--border-bottom-left-radius);
-  }
+  --border-top-left-radius: 1rem;
+  --border-top-right-radius: 0;
+  --border-bottom-left-radius: 0;
+  --border-bottom-right-radius: 1rem;
+  --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
+    var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
 
-#using-tips{
+#using-tips {
   margin-left: 4%;
   margin-top: 14px;
   margin-bottom: 4px;

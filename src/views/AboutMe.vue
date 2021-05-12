@@ -45,6 +45,7 @@ import {
   IonText,
   IonThumbnail,
   IonLabel,
+  IonList
 } from "@ionic/vue";
 import MyCars from "../components/MyCars.vue";
 // import { Plugins } from '@capacitor/core';
@@ -64,6 +65,7 @@ export default {
     IonText,
     IonThumbnail,
     IonLabel,
+    IonList
   },
   data() {
     return {
