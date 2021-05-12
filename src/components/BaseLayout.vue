@@ -3,7 +3,9 @@
     <ion-header class="ion-no-border" :translucent="true">
       <ion-toolbar class="transparent">
         <ion-buttons slot="start">
-          <ion-menu-button :color="buttonColor?buttonColor:'primary'"></ion-menu-button>
+          <ion-menu-button
+            :color="buttonColor ? buttonColor : 'primary'"
+          ></ion-menu-button>
         </ion-buttons>
         <ion-title>{{ pageTitle }}</ion-title>
       </ion-toolbar>
@@ -32,7 +34,7 @@ import { Plugins } from "@capacitor/core";
 const { App } = Plugins;
 
 export default {
-  props: ["pageTitle","isLogin","buttonColor"],
+  props: ["pageTitle", "isLogin", "buttonColor", "useBackButton"],
   name: "Folder",
   components: {
     IonButtons,
@@ -43,13 +45,15 @@ export default {
     IonTitle,
     IonToolbar,
   },
-  setup() {
+  setup(props) {
     const ionRouter = useIonRouter();
-    useBackButton(-1, () => {
-      if (!ionRouter.canGoBack()) {
-        App.exitApp();
-      }
-    });
+    if (!props.useBackButton) {
+      useBackButton(-1, () => {
+        if (!ionRouter.canGoBack()) {
+          App.exitApp();
+        }
+      });
+    }
   },
 };
 </script>
@@ -81,15 +85,15 @@ export default {
 }
 
 ion-toolbar {
---background: transparent;
---ion-color-base: transparent !important;
+  --background: transparent;
+  --ion-color-base: transparent !important;
 }
 
-ion-content{
+ion-content {
   /* --ion-background-color: aqua; */
 }
 
-ion-toolbar{
+ion-toolbar {
   position: absolute;
 }
 </style>
