@@ -89,6 +89,13 @@ const routes = [
       needLogin: false
     },
   },
+  {
+    path: "/folder/gf",
+    component: () => import("../views/gf.vue"),
+    meta: {
+      needLogin: false
+    },
+  },
 ];
 
 const router = createRouter({
