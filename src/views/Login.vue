@@ -1,16 +1,12 @@
 <template>
-  <base-layout page-title="用户登录">
+  <base-layout>
     <!-- 未登录时登录 -->
     <ion-content fullscreen="true" slot="fixed">
-      <ion-card class="main">
-        <ion-card-title color="medium">
-          您还没有登录
-          <br />请登录以使用更多内容
-        </ion-card-title>
+      <ion-card class="main" color="primary">
         <form class="ion-padding" @submit.prevent="login()">
           <ion-list>
-            <ion-item>
-              <ion-label position="floating" color="primary">电话号码</ion-label>
+            <ion-item lines="none" color="primary">
+              <ion-label position="floating" color="light"><h2>Phone Number</h2></ion-label>
               <ion-input
                 v-model="username"
                 name="username"
@@ -20,8 +16,8 @@
                 required
               ></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-label position="floating" color="primary">密码</ion-label>
+            <ion-item lines="none" color="primary">
+              <ion-label position="floating" color="light"><h2>Password</h2></ion-label>
               <ion-input
                 v-model="password"
                 name="password"
@@ -32,11 +28,11 @@
               ></ion-input>
             </ion-item>
           </ion-list>
-          <ion-button type="submit" expand="block">登录</ion-button>
+          <ion-button type="submit" expand="block" color="tertiary">Log in</ion-button>
         </form>
         <ion-card-content>
-          没有帐号？
-          <a @click="toRegister">去注册</a>
+          Have no account?
+          <a @click="toRegister">Sign up</a>
         </ion-card-content>
       </ion-card>
     </ion-content>
@@ -62,7 +58,6 @@ import {
   IonItem,
   IonList,
   IonCard,
-  IonCardTitle,
   IonContent,
   IonCardContent,
   isPlatform,
@@ -78,7 +73,6 @@ export default {
     IonItem,
     IonList,
     IonCard,
-    IonCardTitle,
     IonContent,
     IonCardContent,
   },
@@ -220,15 +214,25 @@ ion-card-title {
 ion-content {
   width: 100%;
   height: 100%;
-  --background: url("../../assets/unlocking-smart-car-by-mobile-phone-application.png")
-      no-repeat 30% -10% / auto 60vh fixed,
-    #fff;
+  --background: url("../../assets/login.png") no-repeat 0 0 / 100% fixed, #fff;
+  background-size: 100% auto;
   position: relative;
 }
-form{
+form {
   padding-top: 10px;
 }
-ion-card{
+ion-card {
   min-height: 40vh+1.5em;
+}
+ion-list{
+  margin: 0;
+  padding: 0;
+}
+a{
+  color:lightblue;
+}
+ion-item {
+    min-height: 80px;
+    background-color: var(--ion-color-primary);
 }
 </style>
