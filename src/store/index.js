@@ -35,6 +35,9 @@ const store = createStore({
     userStatus(state, flag) {
       state.isLogin = flag;
     },
+    userinfo(state, attribute, string){
+      state.userInfo[attribute] = string;
+    }
   },
   modules: {},
   // 应用mutations
@@ -43,6 +46,9 @@ const store = createStore({
     userLogin({ commit }, flag) {
       commit("userStatus", flag);
     },
+    userinfo({ commit },attribute,string){
+      commit("userinfo",attribute,string);
+    }
   },
 });
 

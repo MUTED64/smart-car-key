@@ -126,14 +126,14 @@ function minpoly(x, pm) {
   return p;
 }
 
-function pm64_2() {
-  let pm64_2 = [];
+function pm2(n) {
+  let pm2 = [];
   gen_pow_matrix()
-    .slice(0, 64)
+    .slice(0, n)
     .forEach((p) => {
-      pm64_2.push(p[1]);
+      pm2.push(p[1]);
     });
-  return pm64_2;
+  return pm2;
 }
 
 function divide(x, y, pm) {
@@ -208,5 +208,5 @@ export {
   cleanZeros,
   minpoly,
   euclid,
-  pm64_2,
+  pm2,
 };

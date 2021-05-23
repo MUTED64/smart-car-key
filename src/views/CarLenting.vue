@@ -3,8 +3,12 @@
     <div id="container"></div>
 
     <ion-card class="main">
-      <ion-card-title>附近车辆</ion-card-title>
-      <template v-if="loading">loading</template>
+      <ion-card-title>Cars Nearby</ion-card-title>
+      <template v-if="loading">
+        <ion-label>
+          <h2>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Loading...</h2>
+        </ion-label>
+      </template>
       <template v-else>
         <query-cars
           v-for="(item, key, index) in data"
@@ -35,13 +39,15 @@ export default {
   data() {
     return {
       loading: true,
-      data: [{
-        "car_id":"123",
-        "car_type":"abc",
-        "pos_x":"123",
-        "pos_y":"123",
-        'state':"ok",
-      }],
+      data: [
+        {
+          car_id: "",
+          car_type: "",
+          pos_x: "",
+          pos_y: "",
+          state: "",
+        },
+      ],
     };
   },
   mounted() {
@@ -132,11 +138,12 @@ export default {
           withCredentials: true,
         }
       ).then((carInfo) => {
-        // console.log(carInfo.data);
-        // this.data = carInfo.data.car_data;
-        console.log(carInfo.data.car_data);
+        console.log(carInfo.data);
+        this.data = carInfo.data.car_data;
+        // console.log(carInfo.data.car_data);
         this.loading = false;
       });
+      this.loading = false;
     },
   },
 };
@@ -160,5 +167,9 @@ ion-card.main {
   border-top-right-radius: 1rem;
   min-height: 15vh;
   box-shadow: none;
+}
+
+ion-card-title {
+  margin: 24px;
 }
 </style>
