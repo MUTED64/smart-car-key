@@ -54,7 +54,6 @@ import {
   IonContent,
   IonTitle,
 } from "@ionic/vue";
-import "../theme/MyCars.scss";
 import { reactive } from "vue";
 import OpenModal from "../components/OpenModal.vue";
 import {

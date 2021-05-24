@@ -71,11 +71,10 @@ function polyadd(p1, p2) {
 function polyval(p, x, pm) {
   p = cleanZeros(p);
   let y = new Array(x.length);
-  for (let i = 0; i < y.length; i++) {
-    y[i] = p[p.length - 1];
-  }
   let v = new Array(x.length);
-  for (let i = 0; i < v.length; i++) {
+  let temp = p[p.length - 1];
+  for (let i = 0; i < y.length; i++) {
+    y[i] = temp;
     v[i] = 1;
   }
 
@@ -83,7 +82,15 @@ function polyval(p, x, pm) {
     .reverse()
     .forEach((k) => {
       for (let i = 0; i < v.length; i++) {
-        v[i] = prod(v[i], x, pm)[i];
+        if(x === 0){
+          v[i] = 0;
+        }
+        else if(v[i] === 0){
+          continue;
+        }
+        else{
+          v[i] = pm[(pm[x[i] - 1][0] + pm[v[i] - 1][0] - 1 + pm.length) % pm.length][1];
+        }
       }
       y = add(y, prod(k, v, pm));
     });
@@ -151,7 +158,7 @@ function polydiv(p1, p2, pm) {
   p1 = cleanZeros(p1);
   p2 = cleanZeros(p2);
   if (p1.length < p2.length) {
-    return [0], JSON.parse(JSON.stringify(p1));
+    return [[0], JSON.parse(JSON.stringify(p1))];
   }
 
   let a = new Array(p1.length - p2.length + 1);
@@ -165,7 +172,7 @@ function polydiv(p1, p2, pm) {
   return [a, cleanZeros(b)];
 }
 
-function euclid(p1, p2, pm, max_deg = 0) {
+function euclid(p1, p2, pm, max_deg) {
   p1 = cleanZeros(p1);
   p2 = cleanZeros(p2);
   let x0 = [1];
@@ -175,7 +182,7 @@ function euclid(p1, p2, pm, max_deg = 0) {
 
   let r = JSON.parse(JSON.stringify(p2));
 
-  while (r.length > max_deg + 1) {
+  while (r.length > max_deg + 1) {   
     let q = polydiv(p1, p2, pm)[0];
     r = polydiv(p1, p2, pm)[1];
 

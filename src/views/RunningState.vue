@@ -16,7 +16,7 @@
 
 <script>
 import ExpCars from "../components/ExpCars.vue";
-import { IonCardSubtitle } from "@ionic/vue";
+import { IonTitle, IonCard, IonCardSubtitle, IonContent } from "@ionic/vue";
 
 export default {
   data() {
@@ -24,7 +24,7 @@ export default {
       exception: undefined,
     };
   },
-  components: { ExpCars, IonCardSubtitle },
+  components: { ExpCars, IonTitle, IonCard, IonContent, IonCardSubtitle },
 };
 </script>
 

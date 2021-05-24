@@ -36,9 +36,6 @@ export default {
       let g = minpoly(this.R, this.pm);
       let k = n - g.length + 1;
 
-      console.log(`g:${g}`);
-      console.log(`k:${k}`);
-
       let V = [];
 
       if (U.length !== k) {
@@ -61,15 +58,17 @@ export default {
 
       let s = polyval(V, this.R, this.pm);
 
-      let S = s.reverse().push(1);
+      s.reverse().push(1);
       
       let x = new Array(2 * this.t + 1).fill(0);
       x[0] = 1;
-      x = euclid(x, S, this.pm, this.t)[2];
+      x = euclid(x, s, this.pm, this.t)[2];
+      console.log(`x:${x}`);
       x = polyval(x, pm2(this.pm.length), this.pm);
+      
       for (let i = 0; i < this.pm.length; i++) {
         if (x[i] === 0) {
-          console.log(`this.pm[this.pm[i][1] - 1][0] - 1:${this.pm[this.pm[i][1] - 1][0] - 1}`);
+          // console.log(`this.pm[this.pm[i][1] - 1][0] - 1:${this.pm[this.pm[i][1] - 1][0] - 1}`);
           V[this.pm[this.pm[i][1] - 1][0] - 1] ^= 1;
         }
       }
@@ -87,11 +86,12 @@ export default {
 
       let V = this.encode(test);
       console.log(`V:${V}`);
-      V[0] ^= 1;
+      V[3] ^= 1;
       V[1] ^= 1;
-      V[2] ^= 1;
-
-      console.log(`decode:${this.decode(V)}`);
+      V[15] ^= 1;
+      V[16] ^= 1;
+      V[10] ^= 1;
+      console.log(`d:${this.decode(V)}`);
     },
   },
 };

@@ -163,7 +163,7 @@ export default {
           id: 11451419198,
           passwd:
             "bd9967748c44213bd6bd18e8f354b6341c8bb7cc32a1d7748895fa38727b04ae",
-          timestamp: 1617001449,
+          timestamp: parseInt(new Date().getTime()/1000),
           rand_num: 114514,
         }),
         {

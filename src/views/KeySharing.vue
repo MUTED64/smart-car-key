@@ -19,11 +19,11 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-card button="true" href="/folder/AboutMe" class="function-card">
+            <ion-card button="true" @click="share" class="function-card">
               <ion-thumbnail>
-                <img src="assets/Send.png" alt="Send" />
+                <img src="assets/Send.png" alt="Share" />
               </ion-thumbnail>
-              <ion-card-title class="ion-text-center function-title">Send</ion-card-title>
+              <ion-card-title class="ion-text-center function-title">Share</ion-card-title>
             </ion-card>
           </ion-col>
           <ion-col>
@@ -52,47 +52,7 @@
         </ion-item>
       </ion-card>
     </ion-content>
-    <!-- <ion-toolbar>
-      <ion-segment value="sharer" @ionChange="segmentChanged($event)">
-        <ion-segment-button value="sharer">
-          <ion-label>分享钥匙</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="receiver">
-          <ion-label>接收钥匙</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>-->
-    <!-- <ion-card>
-      <ion-card-title v-if="state ==='sharer'">请输入接收用户的用户名和手机号</ion-card-title>
-      <ion-card-title v-else>请输入分享用户的用户名和手机号</ion-card-title>
-      <form class="ion-padding" @submit.prevent="state === 'sharer' ? share() : receive()">
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating" color="primary">用户名</ion-label>
-            <ion-input
-              v-model="username"
-              name="username"
-              type="text"
-              spellcheck="false"
-              autocapitalize="off"
-              required
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" color="primary">手机号</ion-label>
-            <ion-input
-              v-model="telephone"
-              name="telephone"
-              type="tel"
-              spellcheck="false"
-              autocapitalize="off"
-              required
-            ></ion-input>
-          </ion-item>
-        </ion-list>
-        <ion-button type="submit" expand="block">提交</ion-button>
-      </form>
-    </ion-card>-->
+    <share-modal :is-open="modalInfo1.show" @modal-closed="handleModalClosed1" title="abc" />
   </base-layout>
 </template>
 
@@ -110,11 +70,30 @@ import {
   IonContent,
   IonLabel,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
-// import {stopCircleOutline} from "ionicons/icons"
+import { defineComponent, reactive } from "vue";
+import ShareModal from "../components/ShareModal.vue";
 
 export default defineComponent({
+  setup() {
+    const modalInfo1 = reactive({
+      show: false,
+      data: null,
+    });
+
+    const showModal1 = () => {
+      modalInfo1.show = true;
+    };
+
+    const handleModalClosed1 = (eventData) => {
+      modalInfo1.show = false;
+      // alert(JSON.stringify(eventData));
+      console.log(eventData);
+    };
+
+    return { showModal1, handleModalClosed1, modalInfo1 };
+  },
   components: {
+    ShareModal,
     IonTitle,
     IonThumbnail,
     IonGrid,
@@ -133,10 +112,8 @@ export default defineComponent({
     };
   },
   methods: {
-    segmentChanged(ev) {
-      this.state = ev.detail.value;
-    },
     share() {
+      this.modalInfo1.show = true;
       console.log("share");
     },
     receive() {
