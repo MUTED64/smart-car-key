@@ -29,13 +29,14 @@
                   class="right-bottom-button"
                   expand="block"
                   color="primary"
-                  @click="open()"
+                  @click="open"
                 >OPEN</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card>
       </ion-card>
+      <open-modal :is-open="modalInfo.show" @modal-closed="handleModalClosed" title="abc" />
     </ion-content>
   </base-layout>
 </template>
@@ -54,6 +55,8 @@ import {
   IonTitle,
 } from "@ionic/vue";
 import "../theme/MyCars.scss";
+import { reactive } from "vue";
+import OpenModal from "../components/OpenModal.vue";
 import {
   BleClient,
   textToDataView,
@@ -65,7 +68,26 @@ const BODY_SENSOR_LOCATION_CHARACTERISTIC =
   "00002a38-0000-1000-8000-00805f9b34fb";
 
 export default {
+  setup() {
+    const modalInfo = reactive({
+      show: false,
+      data: null,
+    });
+
+    const showModal = () => {
+      modalInfo.show = true;
+    };
+
+    const handleModalClosed = (eventData) => {
+      modalInfo.show = false;
+      // alert(JSON.stringify(eventData));
+      console.log(eventData);
+    };
+
+    return { showModal, handleModalClosed, modalInfo };
+  },
   components: {
+    OpenModal,
     IonCardContent,
     IonCard,
     IonButton,
@@ -79,6 +101,7 @@ export default {
   },
   methods: {
     async open() {
+      this.modalInfo.show = true;
       try {
         await BleClient.initialize();
 
