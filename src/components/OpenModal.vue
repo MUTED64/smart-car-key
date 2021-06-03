@@ -8,12 +8,7 @@
         </ion-item>
       </ion-card>
       <div class="loginwrapper">
-        <ion-button
-          size="large"
-          expand="block"
-          type="button"
-          @click.prevent="submit();"
-        >Unlock</ion-button>
+        <ion-button size="large" expand="block" type="button" @click.prevent="submit();">Unlock</ion-button>
       </div>
     </form>
   </ion-modal>
@@ -70,10 +65,10 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const handleDidDismiss = (isCanceled) => {
+    const handleDidDismiss = (isCanceled, isOpened) => {
       console.log(isCanceled);
       console.log(props);
-      ctx.emit("modal-closed", { isCanceled });
+      ctx.emit("modal-closed", { isCanceled, isOpened });
     };
     return {
       handleDidDismiss,
@@ -146,16 +141,16 @@ export default defineComponent({
       // }
 
       await setTimeout(2);
-        const alert = await alertController.create({
-            cssClass: "my-custom-class",
-            header: "Success",
-            message: "Your car has been opened successfully! Enjoy your trip!",
-            buttons: ["OK"],
-          });
-          await alert.present();
-          const { role } = await alert.onDidDismiss();
-          console.log("onDidDismiss resolved with role", role);
-          this.handleDidDismiss(false);
+      const alert = await alertController.create({
+        cssClass: "my-custom-class",
+        header: "Success",
+        message: "Your car has been opened successfully! Enjoy your trip!",
+        buttons: ["OK"],
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log("onDidDismiss resolved with role", role);
+      this.handleDidDismiss(false, true);
 
       return false;
     },

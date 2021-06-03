@@ -20,17 +20,26 @@
               <ion-col>
                 <div class="ion-text-center">
                   <ion-text>
-                    <h4>LOCKED</h4>
+                    <h4 v-if="!isCarOpened">LOCKED</h4>
+                    <h4 v-else>OPENED</h4>
                   </ion-text>
                 </div>
               </ion-col>
               <ion-col>
                 <ion-button
+                  v-if="!isCarOpened"
                   class="right-bottom-button"
                   expand="block"
                   color="primary"
                   @click="open"
                 >OPEN</ion-button>
+                <ion-button
+                  v-else
+                  class="right-bottom-button"
+                  expand="block"
+                  color="primary"
+                  @click="close"
+                >CLOSE</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -53,8 +62,9 @@ import {
   IonText,
   IonContent,
   IonTitle,
+  alertController,
 } from "@ionic/vue";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import OpenModal from "../components/OpenModal.vue";
 // import {
 //   BleClient,
@@ -77,7 +87,15 @@ export default {
       modalInfo.show = true;
     };
 
-    const handleModalClosed = async(eventData) => {
+    let isCarOpened = ref(false);
+
+    const handleModalClosed = async (eventData) => {
+      console.log(isCarOpened);
+      if (eventData.isCanceled === false) {
+        if (eventData.isOpened !== undefined) {
+          isCarOpened.value = eventData.isOpened;
+        }
+      }
       // if (modalInfo.show===false) {
       //   await setTimeout(2);
       //   const alert = await alertController.create({
@@ -95,7 +113,7 @@ export default {
       console.log(eventData);
     };
 
-    return { showModal, handleModalClosed, modalInfo };
+    return { showModal, handleModalClosed, modalInfo, isCarOpened };
   },
   components: {
     OpenModal,
@@ -113,52 +131,64 @@ export default {
   methods: {
     async open() {
       this.modalInfo.show = true;
-    //   try {
-    //     await BleClient.initialize();
+      //   try {
+      //     await BleClient.initialize();
 
-    //     const device = await BleClient
-    //       .requestDevice
-    //       // services: [HEART_RATE_SERVICE],
-    //       // optionalServices: [BATTERY_SERVICE, POLAR_PMD_SERVICE],
-    //       ();
+      //     const device = await BleClient
+      //       .requestDevice
+      //       // services: [HEART_RATE_SERVICE],
+      //       // optionalServices: [BATTERY_SERVICE, POLAR_PMD_SERVICE],
+      //       ();
 
-    //     await BleClient.connect(device.deviceId);
-    //     console.log("connected to device", device);
+      //     await BleClient.connect(device.deviceId);
+      //     console.log("connected to device", device);
 
-    //     const result = await BleClient.read(
-    //       device.deviceId,
-    //       HEART_RATE_SERVICE,
-    //       BODY_SENSOR_LOCATION_CHARACTERISTIC
-    //     );
-    //     console.log("body sensor location", result.getUint8(0));
+      //     const result = await BleClient.read(
+      //       device.deviceId,
+      //       HEART_RATE_SERVICE,
+      //       BODY_SENSOR_LOCATION_CHARACTERISTIC
+      //     );
+      //     console.log("body sensor location", result.getUint8(0));
 
-    //     await BleClient.write(
-    //       device.deviceId,
-    //       // POLAR_PMD_SERVICE,
-    //       // POLAR_PMD_CONTROL_POINT,
-    //       numberToUUID(0x181c),
-    //       numberToUUID(0x2a8a),
-    //       textToDataView("muted")
-    //     );
-    //     console.log("written muted");
+      //     await BleClient.write(
+      //       device.deviceId,
+      //       // POLAR_PMD_SERVICE,
+      //       // POLAR_PMD_CONTROL_POINT,
+      //       numberToUUID(0x181c),
+      //       numberToUUID(0x2a8a),
+      //       textToDataView("muted")
+      //     );
+      //     console.log("written muted");
 
-    //     const re = await BleClient.read(
-    //       device.deviceId,
-    //       numberToUUID(0x181c),
-    //       numberToUUID(0x2a8a)
-    //     );
-    //     console.log("name", re);
-    //     await BleClient.startNotifications(
-    //       device.deviceId,
-    //       HEART_RATE_SERVICE,
-    //       BODY_SENSOR_LOCATION_CHARACTERISTIC,
-    //       (value) => {
-    //         console.log("current value", value);
-    //       }
-    //     );
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
+      //     const re = await BleClient.read(
+      //       device.deviceId,
+      //       numberToUUID(0x181c),
+      //       numberToUUID(0x2a8a)
+      //     );
+      //     console.log("name", re);
+      //     await BleClient.startNotifications(
+      //       device.deviceId,
+      //       HEART_RATE_SERVICE,
+      //       BODY_SENSOR_LOCATION_CHARACTERISTIC,
+      //       (value) => {
+      //         console.log("current value", value);
+      //       }
+      //     );
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+    },
+    async close() {
+      const alert = await alertController.create({
+        cssClass: "my-custom-class",
+        header: "Success",
+        message: "Your car has been closed successfully!",
+        buttons: ["OK"],
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log("onDidDismiss resolved with role", role);
+      this.isCarOpened = false;
     },
   },
 };
