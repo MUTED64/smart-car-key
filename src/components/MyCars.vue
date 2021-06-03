@@ -12,12 +12,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <div class="ion-text-center">
-            <ion-text color="dark">
-              <h1 style="display: inline;">￥114</h1>
-            </ion-text>
-            <ion-text>/day</ion-text>
-          </div>
+          <ion-button class="left-bottom-button" expand="block" color="light">Return</ion-button>
         </ion-col>
         <ion-col>
           <ion-button class="right-bottom-button" expand="block" color="tertiary">Details</ion-button>
@@ -36,7 +31,6 @@ import {
   IonRow,
   IonCol,
   IonCardTitle,
-  IonText,
 } from "@ionic/vue";
 import "../theme/MyCars.scss";
 
@@ -49,7 +43,6 @@ export default {
     IonRow,
     IonCol,
     IonCardTitle,
-    IonText,
   },
 };
 </script>
@@ -86,10 +79,18 @@ ion-text h1 {
   line-height: 53px;
 }
 .right-bottom-button {
-  --border-top-left-radius: 1rem;
+  --border-top-left-radius: 0;
   --border-top-right-radius: 0;
   --border-bottom-left-radius: 0;
   --border-bottom-right-radius: 1rem;
+  --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
+    var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
+.left-bottom-button {
+  --border-top-left-radius: 0;
+  --border-top-right-radius: 0;
+  --border-bottom-left-radius: 1rem;
+  --border-bottom-right-radius: 0;
   --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
     var(--border-bottom-right-radius) var(--border-bottom-left-radius);
 }

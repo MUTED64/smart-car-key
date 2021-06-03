@@ -121,29 +121,41 @@ export default defineComponent({
     },
     async submit() {
       // await this.getFaceData();
-      let state = await this.authorization();
-      if (state === true) {
+      // let state = await this.authorization();
+      // if (state === true) {
+      //   const alert = await alertController.create({
+      //     cssClass: "my-custom-class",
+      //     header: "Succeed",
+      //     message: "You have successfully lent this car, congratulations!",
+      //     buttons: ["OK"],
+      //   });
+      //   await alert.present();
+      //   const { role } = await alert.onDidDismiss();
+      //   console.log("onDidDismiss resolved with role", role);
+      //   this.handleDidDismiss(false);
+      // }else{
+      //   const alert = await alertController.create({
+      //     cssClass: "my-custom-class",
+      //     header: "Failed",
+      //     message: "You did not pass the authorization, please try again!",
+      //     buttons: ["OK"],
+      //   });
+      //   await alert.present();
+      //   const { role } = await alert.onDidDismiss();
+      //   console.log("onDidDismiss resolved with role", role);
+      // }
+
+      await setTimeout(2);
         const alert = await alertController.create({
-          cssClass: "my-custom-class",
-          header: "Succeed",
-          message: "You have successfully lent this car, congratulations!",
-          buttons: ["OK"],
-        });
-        await alert.present();
-        const { role } = await alert.onDidDismiss();
-        console.log("onDidDismiss resolved with role", role);
-        this.handleDidDismiss(false);
-      }else{
-        const alert = await alertController.create({
-          cssClass: "my-custom-class",
-          header: "Failed",
-          message: "You did not pass the authorization, please try again!",
-          buttons: ["OK"],
-        });
-        await alert.present();
-        const { role } = await alert.onDidDismiss();
-        console.log("onDidDismiss resolved with role", role);
-      }
+            cssClass: "my-custom-class",
+            header: "Success",
+            message: "Your car has been opened successfully! Enjoy your trip!",
+            buttons: ["OK"],
+          });
+          await alert.present();
+          const { role } = await alert.onDidDismiss();
+          console.log("onDidDismiss resolved with role", role);
+          this.handleDidDismiss(false);
 
       return false;
     },

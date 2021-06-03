@@ -6,7 +6,9 @@
         <form class="ion-padding" @submit.prevent="login()">
           <ion-list>
             <ion-item lines="none" color="primary">
-              <ion-label position="floating" color="light"><h2>Phone Number</h2></ion-label>
+              <ion-label position="floating" color="light">
+                <h2>Phone Number</h2>
+              </ion-label>
               <ion-input
                 v-model="username"
                 name="username"
@@ -17,11 +19,13 @@
               ></ion-input>
             </ion-item>
             <ion-item lines="none" color="primary">
-              <ion-label position="floating" color="light"><h2>Password</h2></ion-label>
+              <ion-label position="floating" color="light">
+                <h2>Password</h2>
+              </ion-label>
               <ion-input
                 v-model="password"
                 name="password"
-                type="text"
+                type="password"
                 spellcheck="false"
                 autocapitalize="off"
                 required
@@ -35,6 +39,7 @@
           <a @click="toRegister">Sign up</a>
         </ion-card-content>
       </ion-card>
+      <verification-modal :is-open="modalInfo.show" @modal-closed="handleModalClosed" title="abc" />
     </ion-content>
   </base-layout>
 </template>
@@ -42,6 +47,7 @@
 <script>
 import router from "../router";
 import "@capacitor-community/http";
+import { defineComponent, reactive } from "vue";
 import {
   Plugins,
   CameraResultType,
@@ -52,6 +58,7 @@ import {
 const { Camera } = Plugins;
 
 import {
+  alertController,
   IonButton,
   IonLabel,
   IonInput,
@@ -64,8 +71,10 @@ import {
 } from "@ionic/vue";
 import Axios from "axios";
 import qs from "qs";
+import VerificationModal from "../components/VerificationModal.vue";
+import { useStore } from "vuex";
 
-export default {
+export default defineComponent({
   components: {
     IonButton,
     IonLabel,
@@ -75,6 +84,67 @@ export default {
     IonCard,
     IonContent,
     IonCardContent,
+    VerificationModal,
+  },
+  setup() {
+    const modalInfo = reactive({
+      show: false,
+      data: null,
+    });
+
+    const store = useStore();
+
+    const loginToBackEnd = () => {
+      Axios.post(
+        "https://syml-gensokyo.cn:8888/login",
+        qs.stringify({
+          id: 11451419198,
+          passwd:
+            "bd9967748c44213bd6bd18e8f354b6341c8bb7cc32a1d7748895fa38727b04ae",
+          timestamp: parseInt(new Date().getTime() / 1000),
+          rand_num: 114514,
+        }),
+        {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: true,
+        }
+      ).then(async (data) => {
+        console.log(data.data);
+        if (
+          data.data["data"] === "you have already logged!" ||
+          data.data["data"] === "LOGIN SUCCESS"
+        ) {
+          store.dispatch("userLogin", true);
+          let redirectpath = router.currentRoute.value.query.redirect;
+          router.replace(redirectpath ? redirectpath : "/");
+        } else {
+          const alert = await alertController.create({
+            cssClass: "my-custom-class",
+            header: "Failed",
+            message: "Login Failed, please check your information.",
+            buttons: ["OK"],
+          });
+          await alert.present();
+          const { role } = await alert.onDidDismiss();
+          console.log("onDidDismiss resolved with role", role);
+        }
+      });
+    };
+
+    const showModal = () => {
+      modalInfo.show = true;
+    };
+
+    const handleModalClosed = (eventData) => {
+      if (modalInfo.show===false) {
+        loginToBackEnd();
+      }
+      modalInfo.show = false;
+      // alert(JSON.stringify(eventData));
+      console.log(eventData);
+    };
+
+    return { showModal, handleModalClosed, modalInfo };
   },
   data() {
     return {
@@ -130,8 +200,18 @@ export default {
     },
 
     async login() {
-      // this.getFaceData();
-      this.loginToBackEnd();
+      const alert = await alertController.create({
+        cssClass: "my-custom-class",
+        header: "Tips",
+        message:
+          "We need you to take a picture to confirm your identity. Take a nice selfie!",
+        buttons: ["OK"],
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log("onDidDismiss resolved with role", role);
+      await this.getFaceData();
+      this.modalInfo.show = true;
     },
 
     async getFaceData() {
@@ -155,36 +235,13 @@ export default {
       ).data;
       console.log(faceData);
     },
-
-    loginToBackEnd() {
-      Axios.post(
-        "https://syml-gensokyo.cn:8888/login",
-        qs.stringify({
-          id: 11451419198,
-          passwd:
-            "bd9967748c44213bd6bd18e8f354b6341c8bb7cc32a1d7748895fa38727b04ae",
-          timestamp: parseInt(new Date().getTime()/1000),
-          rand_num: 114514,
-        }),
-        {
-          "Content-Type": "application/x-www-form-urlencoded",
-          withCredentials: true,
-        }
-      ).then((data) => {
-        console.log(data);
-        this.$store.dispatch("userLogin", true);
-        let redirectpath = router.currentRoute.value.query.redirect;
-        router.replace(redirectpath ? redirectpath : "/");
-      });
-    },
-
     toRegister() {
       router.replace({
         path: "/folder/register",
       });
     },
   },
-};
+});
 </script>
 
 <style scoped>
@@ -224,15 +281,15 @@ form {
 ion-card {
   min-height: 40vh+1.5em;
 }
-ion-list{
+ion-list {
   margin: 0;
   padding: 0;
 }
-a{
-  color:lightblue;
+a {
+  color: lightblue;
 }
 ion-item {
-    min-height: 80px;
-    background-color: var(--ion-color-primary);
+  min-height: 80px;
+  background-color: var(--ion-color-primary);
 }
 </style>

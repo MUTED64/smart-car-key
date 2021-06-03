@@ -1,52 +1,88 @@
 <template>
-  <base-layout page-title="注册">
-    <ion-card class="main">
-      <ion-card-title color="medium">填写个人信息完成注册</ion-card-title>
-      <form class="ion-padding" @submit.prevent="register()">
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating" color="primary">电话号码</ion-label>
-            <ion-input
-              v-model="username"
-              name="username"
-              type="text"
-              spellcheck="false"
-              autocapitalize="off"
-              required
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" color="primary">密码</ion-label>
-            <ion-input
-              v-model="password"
-              name="password"
-              type="text"
-              spellcheck="false"
-              autocapitalize="off"
-              required
-            ></ion-input>
-          </ion-item>
-        </ion-list>
-        <ion-button type="submit" expand="block">注册</ion-button>
-      </form>
-    </ion-card>
+  <base-layout buttonColor="tertiary">
+    <!-- 未登录时登录 -->
+    <ion-content fullscreen="true" slot="fixed">
+      <ion-card class="main" color="primary">
+        <form class="ion-padding" @submit.prevent="login()">
+          <ion-list>
+            <ion-item lines="none" color="primary">
+              <ion-label position="floating" color="light">
+                <h2>Phone Number</h2>
+              </ion-label>
+              <ion-input
+                v-model="id"
+                name="id"
+                type="text"
+                spellcheck="false"
+                autocapitalize="off"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" color="primary">
+              <ion-label position="floating" color="light">
+                <h2>User Name</h2>
+              </ion-label>
+              <ion-input
+                v-model="username"
+                name="username"
+                type="text"
+                spellcheck="false"
+                autocapitalize="off"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" color="primary">
+              <ion-label position="floating" color="light">
+                <h2>Password</h2>
+              </ion-label>
+              <ion-input
+                v-model="password"
+                name="password"
+                type="password"
+                spellcheck="false"
+                autocapitalize="off"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" expand="block" color="tertiary">Register</ion-button>
+        </form>
+      </ion-card>
+      <verification-modal :is-open="modalInfo.show" @modal-closed="handleModalClosed" title="abc" />
+    </ion-content>
   </base-layout>
 </template>
 
 <script>
+import router from "../router";
+import "@capacitor-community/http";
+import { defineComponent, reactive } from "vue";
 import {
+  Plugins,
+  CameraResultType,
+  CameraSource,
+  CameraDirection,
+} from "@capacitor/core";
+
+const { Camera } = Plugins;
+
+import {
+  alertController,
   IonButton,
   IonLabel,
   IonInput,
   IonItem,
   IonList,
   IonCard,
-  IonCardTitle,
+  IonContent,
+  isPlatform,
 } from "@ionic/vue";
-// import router from "../router";
-// import Axios from "axios";
+import Axios from "axios";
+import qs from "qs";
+import VerificationModal from "../components/VerificationModal.vue";
+import { useStore } from "vuex";
 
-export default {
+export default defineComponent({
   components: {
     IonButton,
     IonLabel,
@@ -54,55 +90,209 @@ export default {
     IonItem,
     IonList,
     IonCard,
-    IonCardTitle,
+    IonContent,
+    VerificationModal,
+  },
+  setup() {
+    const modalInfo = reactive({
+      show: false,
+      data: null,
+    });
+
+    const store = useStore();
+
+    const loginToBackEnd = () => {
+      Axios.post(
+        "https://syml-gensokyo.cn:8888/login",
+        qs.stringify({
+          id: 11451419198,
+          passwd:
+            "bd9967748c44213bd6bd18e8f354b6341c8bb7cc32a1d7748895fa38727b04ae",
+          timestamp: parseInt(new Date().getTime() / 1000),
+          rand_num: 114514,
+        }),
+        {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: true,
+        }
+      ).then(async (data) => {
+        console.log(data.data);
+        if (
+          data.data["data"] === "you have already logged!" ||
+          data.data["data"] === "LOGIN SUCCESS"
+        ) {
+          store.dispatch("userLogin", true);
+          let redirectpath = router.currentRoute.value.query.redirect;
+          router.replace(redirectpath ? redirectpath : "/");
+        } else {
+          const alert = await alertController.create({
+            cssClass: "my-custom-class",
+            header: "Failed",
+            message: "Login Failed, please check your information.",
+            buttons: ["OK"],
+          });
+          await alert.present();
+          const { role } = await alert.onDidDismiss();
+          console.log("onDidDismiss resolved with role", role);
+        }
+      });
+    };
+
+    const showModal = () => {
+      modalInfo.show = true;
+    };
+
+    const handleModalClosed = (eventData) => {
+      if (modalInfo.show===false) {
+        loginToBackEnd();
+      }
+      modalInfo.show = false;
+      // alert(JSON.stringify(eventData));
+      console.log(eventData);
+    };
+
+    return { showModal, handleModalClosed, modalInfo };
   },
   data() {
     return {
+      id:null,
       username: null,
       password: null,
-      showVerifyCode: false
     };
   },
-  methods: {
-    async register() {
-      console.log("register");
-      // await Axios.post("folder/AboutMe", {
-      //   user: this.username,
-      //   password: this.password,
-      //   timestamp: new Date().valueOf(),
-      // }).then((data) => {
-      //   //登录失败,先不讨论
-      //   if (data.data.status != 200) {
-      //     console.log("login failed");
-      //     //登录成功
-      //   } else {
-      //     //跳转到验证码
-      //     router.replace("/folder/verification");
-      //   }
-      // });
+  computed: {
+    flag() {
+      return this.$store.getters.isLogin;
     },
   },
-};
+  methods: {
+    async postRequestCORS(url, data, headers) {
+      if (isPlatform("capacitor")) {
+        const { Http } = Plugins;
+
+        const onPost = async () => {
+          const ret = await Http.request({
+            method: "POST",
+            url: url,
+            headers: headers,
+            data: data,
+          });
+          return ret;
+        };
+
+        return onPost();
+      } else if (url.indexOf("baidu") != -1) {
+        return await Axios.post(
+          // `/api/FaceApi/rest/2.0/face/v3/detect?access_token=24.adf4e216cc967c9c84f544aed604240b.2592000.1619166786.282335-23774832`,
+          `https://api-cors-proxy-devdactic.herokuapp.com/${url}`,
+          data,
+          headers
+        );
+        // ).then((data) => {
+        //   console.log(data);
+        //   return data;
+        // });
+      } else {
+        return await Axios.post(url, data, headers);
+      }
+    },
+
+    async takePhoto() {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+        quality: 50,
+        direction: CameraDirection.Front,
+      });
+      return await photo.base64String;
+    },
+
+    async login() {
+      const alert = await alertController.create({
+        cssClass: "my-custom-class",
+        header: "Tips",
+        message:
+          "We need you to take a picture to confirm your identity. Take a nice selfie!",
+        buttons: ["OK"],
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log("onDidDismiss resolved with role", role);
+      await this.getFaceData();
+      this.modalInfo.show = true;
+    },
+
+    async getFaceData() {
+      let base64photo = await this.takePhoto();
+
+      const BAIDU_API =
+        // "https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=24.adf4e216cc967c9c84f544aed604240b.2592000.1619166786.282335-23774832";
+        "https://aip.baidubce.com/rest/2.0/face/v1/landmark?access_token=24.adf4e216cc967c9c84f544aed604240b.2592000.1619166786.282335-23774832";
+      const faceData = (
+        await this.postRequestCORS(
+          BAIDU_API,
+          {
+            image: base64photo,
+            image_type: "BASE64",
+            face_field: "landmark72",
+          },
+          {
+            "Content-Type": "application/json",
+          }
+        )
+      ).data;
+      console.log(faceData);
+    },
+  },
+});
 </script>
 
 <style scoped>
 ion-card.main {
   margin-left: auto;
   margin-right: auto;
-  position: relative;
+  /*position: relative;
   top: 50%;
-  transform: translateY(-50%);
-  width: 90%;
-  border: 3px solid #3880ff;
+  transform: translateY(-50%); */
+  /* width: 90%; */
+  /* border: 3px solid var(--ion-color-primary); */
+  width: 100%;
   box-shadow: none;
-  border-radius: 12px;
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+  position: fixed;
+  bottom: 0;
+  z-index: 1200;
 }
 ion-button {
-  margin-top: 10%;
-  margin-bottom: 7%;
+  margin-top: 7%;
 }
 ion-card-title {
   text-align: center;
   margin-top: 10%;
+}
+ion-content {
+  width: 100%;
+  height: 100%;
+  --background: url("../../assets/login.png") no-repeat 0 0 / 100% fixed, #fff;
+  background-size: 100% auto;
+  position: relative;
+}
+form {
+  padding-top: 10px;
+}
+ion-card {
+  min-height: 40vh+1.5em;
+}
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: lightblue;
+}
+ion-item {
+  min-height: 80px;
+  background-color: var(--ion-color-primary);
 }
 </style>

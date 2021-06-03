@@ -54,6 +54,7 @@ export default {
     },
 
     decode(W) {
+      console.time("dec");
       let V = JSON.parse(JSON.stringify(W));
 
       let s = polyval(V, this.R, this.pm);
@@ -72,7 +73,7 @@ export default {
           V[this.pm[this.pm[i][1] - 1][0] - 1] ^= 1;
         }
       }
-
+console.timeEnd("dec");
       return V;
     },
 

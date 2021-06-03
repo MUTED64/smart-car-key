@@ -128,29 +128,29 @@ export default defineComponent({
     },
     async submit() {
       // await this.getFaceData();
-      let state = await this.authorization();
-      if (state === true) {
+      // let state = await this.authorization();
+      // if (state === true) {
         const alert = await alertController.create({
           cssClass: "my-custom-class",
-          header: "Succeed",
-          message: "You have successfully lent this car, congratulations!",
+          header: "Success",
+          message: "You have successfully shared your key!",
           buttons: ["OK"],
         });
         await alert.present();
         const { role } = await alert.onDidDismiss();
         console.log("onDidDismiss resolved with role", role);
         this.handleDidDismiss(false);
-      }else{
-        const alert = await alertController.create({
-          cssClass: "my-custom-class",
-          header: "Failed",
-          message: "You did not pass the authorization, please try again!",
-          buttons: ["OK"],
-        });
-        await alert.present();
-        const { role } = await alert.onDidDismiss();
-        console.log("onDidDismiss resolved with role", role);
-      }
+      // }else{
+      //   const alert = await alertController.create({
+      //     cssClass: "my-custom-class",
+      //     header: "Failed",
+      //     message: "You did not pass the authorization, please try again!",
+      //     buttons: ["OK"],
+      //   });
+      //   await alert.present();
+      //   const { role } = await alert.onDidDismiss();
+      //   console.log("onDidDismiss resolved with role", role);
+      // }
 
       return false;
     },

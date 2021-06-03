@@ -5,11 +5,19 @@
       <ion-title>
         <h1>Exception Log</h1>
       </ion-title>
-      <ion-card color="light" class="exception" v-if="!exception">
+      <ion-card color="light" class="noexception" v-if="!exception">
         <ion-card-subtitle>
           <h2 class="subtitle">No Exception</h2>
         </ion-card-subtitle>
       </ion-card>
+      <template v-else>
+        <ion-card color="light" class="exception">
+          <ion-label color="medium"><h1 class="label-h1">{{exception.time}}</h1></ion-label>
+          <ion-card-subtitle>
+            <h2 class="subtitle-danger">{{exception.msg}}</h2>
+          </ion-card-subtitle>
+        </ion-card>
+      </template>
     </ion-content>
   </base-layout>
 </template>
@@ -21,7 +29,7 @@ import { IonTitle, IonCard, IonCardSubtitle, IonContent } from "@ionic/vue";
 export default {
   data() {
     return {
-      exception: undefined,
+      exception: {"time": "Sun, April 11, 2021", "msg": "Abnormal face detected!"},
     };
   },
   components: { ExpCars, IonTitle, IonCard, IonContent, IonCardSubtitle },
@@ -41,6 +49,14 @@ ion-content {
   margin-top: 30vw;
 }
 
+.noexception {
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: none;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .exception {
   border-radius: 1rem;
   text-align: center;
@@ -52,5 +68,17 @@ ion-content {
 .subtitle {
   color: var(--ion-color-medium);
   margin: 7% auto;
+}
+
+.subtitle-danger {
+  color: var(--ion-color-medium);
+  margin: 7% auto;
+  color: var(--ion-color-danger-shade);
+}
+
+.label-h1{
+  font-size: 18px;
+  text-align: left;
+  margin: 4% 8%;
 }
 </style>

@@ -8,10 +8,10 @@
     <div>
       <img src="assets/car.png" />
     </div>
-
+<!-- 
     <ion-text>
       <h2>{{car_id}}{{car_type}}{{pos_x}}{{pos_y}}{{state}}</h2>
-    </ion-text>
+    </ion-text> -->
 
     <ion-grid>
       <ion-row>
